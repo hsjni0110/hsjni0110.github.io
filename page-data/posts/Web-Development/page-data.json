@@ -1,5 +1,0 @@
-{
-    "componentChunkName": "component---src-templates-category-template-js",
-    "path": "/posts/Web-Development",
-    "result": {"pageContext":{"currentCategory":"Web-Development","categories":["All","Web-Development","블로그","featured"],"edges":[{"node":{"id":"5dcc2c49-5c83-5ef2-9817-dd7f36e20be2","excerpt":"소개 첫 포스팅을 위한 테스트 마크다운","fields":{"slug":"/first-posting/"},"frontmatter":{"categories":"Web-Development","title":"Gatsby로 만드는 첫 번째 포스팅","date":"October 17, 2022"}},"next":{"fields":{"slug":"/gatsby-github-blog/"}},"previous":null}]}},
-    "staticQueryHashes": ["1073350324","1956554647","2938748437"]}
