@@ -272,6 +272,53 @@ RDB의 경우 메모리 양만 적절하다면 데이터 마트에 적합합니�
 <p>디스크 상의 최소한의 데이터를 쿼리를 통해 가져와야 지연을 최대로 줄일 수 있습니다.</p>
 <p>일반적인 레코드 단위의 데이터 베이스는 <strong>행 지향 데이터베이스</strong> 라고 부릅니다. 이는 RDB가 대표적이죠.</p>
 <p>이에 반해 데이터 분석 시 사용되는 칼럼 단위의 집계에 최적화된 데이터베이스를 <strong>열 지향 데이터 베이스</strong> 라고 합니다.</p>
+<p>여기서 헷갈리면 안되는게 칼럼 단위로 데이터를 저장한다는 것은 행/열을 바꾸는게 아니라, 저장 단위만이 바뀐다는 것입니다.</p>
+<p><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 53.333333333333336%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAB2HAAAdhwGP5fFlAAABHklEQVQoz6XRS2/DMAgA4P7/HzdphyrbnHdiAzbOy3k0lRx2qLRuuexQLsDhEwIu8kJcHmnfd0QkIkK0YLTWAECEhAgIWmuy1rUFgiFrn/g4DhFh5labsKy9w9A7leVgecJ6MjlYp9IshNCnb2PHKstjjH+wZ25zNVjjoRkZ1fXdlOlgzWCNKVN1fR8deDIdtSq5PsgTd54DlbLxEUg276vkxrWsLAvfXO3LRFZ/TCSzpeIjxjP2E5QycxxJFu+KZLW1zCxrt3Lrqk/Z+hicLIzl1xl75tFpuc9xHeQ+U50uHcoeZBu3nqhScpvi0ss26kKddw4hVHUDSNoAklVpVjctIAFS02qVZoBkALXBsqrOr3rpzz8H/Lf9Xb80+RtItXfa0B9dpwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="행 지향 DB"
+        title="행 지향 DB"
+        src="/static/5aef461f131049c218ea8b6d6dc3ff9b/37523/%ED%96%89%EC%A7%80%ED%96%A5.png"
+        srcset="/static/5aef461f131049c218ea8b6d6dc3ff9b/e9ff0/%ED%96%89%EC%A7%80%ED%96%A5.png 180w,
+/static/5aef461f131049c218ea8b6d6dc3ff9b/f21e7/%ED%96%89%EC%A7%80%ED%96%A5.png 360w,
+/static/5aef461f131049c218ea8b6d6dc3ff9b/37523/%ED%96%89%EC%A7%80%ED%96%A5.png 720w,
+/static/5aef461f131049c218ea8b6d6dc3ff9b/eba85/%ED%96%89%EC%A7%80%ED%96%A5.png 1054w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span>
+<span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 720px; "
+    >
+      <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 53.333333333333336%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAB2HAAAdhwGP5fFlAAABSUlEQVQoz6WSS2/CMAzH+f5fZqcddpk0gTQ2cRiFUbrSF83LcduVhhbxaDK1rEMdaJdZfyVy7J+dyBmYf9jgvO33ByERMAGJEoBw4IAgJUjJBRImAFNkawEAmFxgrbUxJkWgvlMk8Bm7ivuBPU1oqOLlNppJuo6W0zITG3ukYO07i/p06sEZ8chikos4JV6OPHh5SOZDlQqFBAM7Ht2VSDdAFLLQGusqb1nddSZBkYjmoK6NMdJ/r4R/Ll+pQi7GTajN5JFXb7MenNGgkMwYUx+PDezOKvrRwbmcjZpQW5eF7m84ib0NtnDdvEe4VtnBu1KJ6dMPTDynVmkPVsii+YQHLl3ZPPT810f6NmTBivkOcazo+Z67FnMt6lqhNTaHqjeqxg47s9+afdmsx13rlt/SJ2N0p6s56/70/3Dbi+qrzpfaN3Xjh30Bxgp1U18kUwkAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="열 지향 DB"
+        title="열 지향 DB"
+        src="/static/0e870cb730d10a10c181808e4e2a64e1/37523/%EC%97%B4%EC%A7%80%ED%96%A5.png"
+        srcset="/static/0e870cb730d10a10c181808e4e2a64e1/e9ff0/%EC%97%B4%EC%A7%80%ED%96%A5.png 180w,
+/static/0e870cb730d10a10c181808e4e2a64e1/f21e7/%EC%97%B4%EC%A7%80%ED%96%A5.png 360w,
+/static/0e870cb730d10a10c181808e4e2a64e1/37523/%EC%97%B4%EC%A7%80%ED%96%A5.png 720w,
+/static/0e870cb730d10a10c181808e4e2a64e1/eba85/%EC%97%B4%EC%A7%80%ED%96%A5.png 1054w"
+        sizes="(max-width: 720px) 100vw, 720px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+    </span></p>
 <p>대표적으로 <strong>Teradata(테라데이터)</strong> 와 <strong>Amazon RedShift</strong> 등이 열 지향 데이터 베이스입니다.</p>
 <br />
 <p>행 지향 데이터 베이스는 인덱스를 통해 데이터 검색을 합니다. 하지만 데이터 분석 시는 어떤 칼럼이 사용되는 지 알 수 없어 이러한 인덱스 작성은 크게 효율적이지 않고 많은 디스크 I/O를 동반합니다.</p>
@@ -368,6 +415,6 @@ RDB의 경우 메모리 양만 적절하다면 데이터 마트에 적합합니�
 </ul>
 <br />
 <ul>
-<li>BI 도구로 비정규화 테이블을 오픈하여 전통적인 OLAP에 의한 데이터 집계 처럼 다차원 모델을 통해 측정값과 딥멘전으로 분류하여 데이터 분석 및 크로스 집계를 대량으로 수행할 수 있습니다.</li>
+<li>BI 도구로 비정규화 테이블을 오픈하여 전통적인 OLAP에 의한 데이터 집계 처럼 다차원 모델을 통해 측정값과 디멘전으로 분류하여 데이터 분석 및 크로스 집계를 대량으로 수행할 수 있습니다.</li>
 </ul>
-<br /></div></div><div class="post-navigator"><div class="post-navigator-card-wrapper"><a class="post-card prev" href="/data-engineering-2/"><div class="direction">이전 글</div><div class="title">데이터베이스 기본에 대하여</div></a></div><div class="post-navigator-card-wrapper"></div></div><div class="utterances"></div></main><footer class="page-footer-wrapper"><p class="page-footer">© <!-- -->2023<!-- --> <a href="https://github.com/hsjni0110">한석진</a> powered by<a href="https://github.com/zoomKoding/zoomkoding-gatsby-blog"> zoomkoding-gatsby-blog</a></p></footer><div class="dark-mode-button-wrapper"><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium dark-mode-button css-1yxmbwk" tabindex="0" type="button"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge dark-mode-icon css-6flbmm" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DarkModeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path></svg></button></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/data-engineering-1/";window.___webpackCompilationHash="346d51bd6e34b20f7639";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-c6994e07ca88ec5e3041.js"],"app":["/app-dcbe73f9b28a3510dd1f.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-12b5d8159c7e67968cd6.js"],"component---src-pages-404-js":["/component---src-pages-404-js-08cc50ffcb4acbdcdac0.js"],"component---src-pages-about-js":["/component---src-pages-about-js-c09ec7592f2af24d973b.js"],"component---src-pages-index-js":["/component---src-pages-index-js-03d73af70c70151cfe6c.js"],"component---src-templates-blog-template-js":["/component---src-templates-blog-template-js-5d9312e4166167080960.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-fc228455ea2130d2e015.js"]};/*]]>*/</script><script src="/polyfill-c6994e07ca88ec5e3041.js" nomodule=""></script><script src="/app-dcbe73f9b28a3510dd1f.js" async=""></script><script src="/framework-624450fa60bf625678af.js" async=""></script><script src="/webpack-runtime-d8f65b76612f6e3d2bb9.js" async=""></script></body></html>
+<br /></div></div><div class="post-navigator"><div class="post-navigator-card-wrapper"><a class="post-card prev" href="/data-engineering-2/"><div class="direction">이전 글</div><div class="title">데이터베이스 기본에 대하여</div></a></div><div class="post-navigator-card-wrapper"><a class="post-card next" href="/data-engineer-3/"><div class="direction">다음 글</div><div class="title">빅 데이터를 지탱하는 기술 책 리뷰 - (2)</div></a></div></div><div class="utterances"></div></main><footer class="page-footer-wrapper"><p class="page-footer">© <!-- -->2023<!-- --> <a href="https://github.com/hsjni0110">한석진</a> powered by<a href="https://github.com/zoomKoding/zoomkoding-gatsby-blog"> zoomkoding-gatsby-blog</a></p></footer><div class="dark-mode-button-wrapper"><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium dark-mode-button css-1yxmbwk" tabindex="0" type="button"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge dark-mode-icon css-6flbmm" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DarkModeIcon"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"></path></svg></button></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/data-engineering-1/";window.___webpackCompilationHash="346d51bd6e34b20f7639";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-c6994e07ca88ec5e3041.js"],"app":["/app-dcbe73f9b28a3510dd1f.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-12b5d8159c7e67968cd6.js"],"component---src-pages-404-js":["/component---src-pages-404-js-08cc50ffcb4acbdcdac0.js"],"component---src-pages-about-js":["/component---src-pages-about-js-c09ec7592f2af24d973b.js"],"component---src-pages-index-js":["/component---src-pages-index-js-03d73af70c70151cfe6c.js"],"component---src-templates-blog-template-js":["/component---src-templates-blog-template-js-5d9312e4166167080960.js"],"component---src-templates-category-template-js":["/component---src-templates-category-template-js-fc228455ea2130d2e015.js"]};/*]]>*/</script><script src="/polyfill-c6994e07ca88ec5e3041.js" nomodule=""></script><script src="/app-dcbe73f9b28a3510dd1f.js" async=""></script><script src="/framework-624450fa60bf625678af.js" async=""></script><script src="/webpack-runtime-d8f65b76612f6e3d2bb9.js" async=""></script></body></html>
