@@ -21,3 +21,18 @@ test('homepage introduces the developer and orders the main cases', async ({ pag
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('누구의 어떤 문제인지부터 생각합니다.');
   expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync', 'shared-life']);
 });
+test('approved PDF, fonts and project images load from the configured base', async ({ page, request }) => {
+  const pdf = await request.get(`${base}resume.pdf`);
+  expect(pdf.ok()).toBe(true);
+  expect((await pdf.body()).subarray(0,5).toString()).toBe('%PDF-');
+  await page.goto(base);
+  expect(await page.evaluate(async()=>{await document.fonts.load('18px Pretendard');return document.fonts.check('18px Pretendard');})).toBe(true);
+  for (const path of ['', 'projects/forgesync/']) {
+    await page.goto(`${base}${path}`);
+    for (const image of await page.locator('main img').all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect(image).toHaveJSProperty('complete', true);
+      expect(await image.evaluate((el: HTMLImageElement)=>el.naturalWidth)).toBeGreaterThan(0);
+    }
+  }
+});

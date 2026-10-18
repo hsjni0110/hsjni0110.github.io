@@ -45,3 +45,11 @@ test('404 offers a working way home', async ({ page }) => {
   await page.getByRole('link',{name:'첫 화면으로 돌아가기'}).click();
   await expect(page.locator('[data-project]')).toHaveCount(3);
 });
+test('two hundred percent zoom keeps text and contact usable', async ({ page }) => {
+  await page.setViewportSize({width:1440,height:1000});
+  await page.goto(base);
+  await page.evaluate(()=>{document.documentElement.style.zoom='2';});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true);
+  await page.locator('#contact').scrollIntoViewIfNeeded();
+  await expect(page.locator('#contact').getByRole('link',{name:'이메일로 연락하기',exact:true})).toBeVisible();
+});
