@@ -4,7 +4,7 @@ test('reading works without javascript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto(base);
-  await page.locator('[data-project="speaktext"]').getByRole('link', { name: '판단의 과정 읽기' }).click();
+  await page.locator('[data-project="speaktext"]').getByRole('link', { name: '사례 읽기' }).click();
   await expect(page.getByRole('heading', { name: '판단', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: '이메일로 연락하기', exact: true })).toHaveAttribute('href', 'mailto:seokjin.han010@gmail.com');
   await context.close();

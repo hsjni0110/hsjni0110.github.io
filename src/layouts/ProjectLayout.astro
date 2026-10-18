@@ -17,7 +17,7 @@ const related = (await getCollection('projects')).filter(x => x.id !== project.i
       <a class="back-link text-link" href={withBase('/#cases')}><span aria-hidden="true">←</span> 전체 사례로 돌아가기</a>
       <p class="case-project">{p.title} <span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'} · {p.period}</span></p>
       <h1>{p.lead}</h1><p class="case-description">{p.description}</p>
-      <dl class="case-meta"><div><dt>담당</dt><dd>{p.role}</dd></div><div><dt>현재 상태</dt><dd>{p.status === 'in-development' ? '개발 중 · 변경 버전 검증 전' : '구현 경험과 확인 범위 기록'}</dd></div></dl>
+      <dl class="case-meta"><div><dt>담당</dt><dd>{p.role}</dd></div>{p.status === 'in-development' && <div><dt>현재 상태</dt><dd>개발 중 · 변경 버전 검증 전</dd></div>}</dl>
       <dl class="case-summary"><div><dt>문제</dt><dd>{p.summary.problem}</dd></div><div><dt>판단</dt><dd>{p.summary.decision}</dd></div><div><dt>확인</dt><dd>{p.summary.outcome}</dd></div></dl>
       {p.hero && <Figure {...p.hero} sourceUrl={p.hero.sourceUrl || p.sources[0]?.url} eager />}
     </header>
@@ -28,6 +28,6 @@ const related = (await getCollection('projects')).filter(x => x.id !== project.i
       </div>
     </div>
   </article>
-  <section class="related-section soft"><div class="shell"><h2>다른 문제, 같은 질문.</h2><div class="more-list">{related.map(x=><a class="more-link" href={withBase(`/projects/${x.id}/`)}><h3>{x.data.title}</h3><p>{x.data.description}</p><span>사례 읽기 →</span></a>)}</div></div></section>
-  <section class="case-contact shell"><h2>함께 풀어갈 문제가 있다면.</h2><ContactLinks /></section>
+  <section class="related-section soft"><div class="shell"><h2>다른 프로젝트</h2><div class="more-list">{related.map(x=><a class="more-link" href={withBase(`/projects/${x.id}/`)}><h3>{x.data.title}</h3><p>{x.data.description}</p><span>사례 읽기 →</span></a>)}</div></div></section>
+  <section class="case-contact shell"><h2>채용·협업 문의</h2><ContactLinks /></section>
 </SiteLayout>

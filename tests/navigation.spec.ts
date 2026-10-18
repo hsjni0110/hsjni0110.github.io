@@ -18,7 +18,7 @@ for (const id of ['speaktext', 'forgesync', 'shared-life', 'db-fleet-ops', 'rese
 }
 test('homepage introduces the developer and orders the main cases', async ({ page }) => {
   await page.goto(base);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('누구의 어떤 문제인지부터 생각합니다.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('문제를 구체적으로 정의하고, 구현과 검증까지 맡습니다.');
   expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync', 'shared-life']);
 });
 test('approved PDF, fonts and project images load from the configured base', async ({ page, request }) => {
