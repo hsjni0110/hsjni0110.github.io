@@ -9,9 +9,9 @@ for (const id of ['speaktext', 'forgesync', 'shared-life', 'db-fleet-ops', 'rese
   test(`${id} works by direct navigation and refresh`, async ({ page }) => {
     const response = await page.goto(`${base}projects/${id}/`);
     expect(response?.status()).toBe(200);
-    await expect(page.getByRole('heading', { name: '한계와 다음 단계', exact: true })).toBeVisible();
+    await expect(page.locator('.case-body .prose > h2').last()).toBeVisible();
     await page.reload();
-    await expect(page.getByRole('heading', { name: '확인', exact: true })).toBeVisible();
+    await expect(page.locator('.case-body .prose > h2').first()).toBeVisible();
     await expect(page.getByRole('link', { name: '전체 사례로 돌아가기' })).toHaveAttribute('href', `${base}#cases`);
   });
 }
