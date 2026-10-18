@@ -1,6 +1,6 @@
 # Portfolio Site Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 한국어로 문제 인식·판단·실행·검증을 전달하는 메인과 상세 사례 5개, 공개 이력서·연락 경로를 갖춘 정적 포트폴리오를 만든다.
 
@@ -112,12 +112,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** 설계 6~8장의 사실·공개 기준을 소비한다. 1.3의 메타와 표준 H2 본문을 후속 작업에 제공한다. 이 시점에는 앱을 실행하지 않는다.
 
-- [ ] Step 1: 기존 Git 유무·작업 파일을 재확인하고 없으면 이 폴더만 로컬 `git init`한다. 기존 PDF·설계 문서는 보존한다.
-- [ ] Step 2: 주장 장부에 주장, 대상 페이지, 사용자 확인/문서/코드/테스트 읽기/미검증, 출처, 허용 문장을 기록한다. 개인정보 원문은 복사하지 않는다.
-- [ ] Step 3: 5개 상세 본문과 메타를 작성한다. SpeakText 공동 결정·정성 피드백, ForgeSync 현장 가정·정답 없음, 앱 변경 버전 미검증을 각각 확인·한계 절에 넣는다.
-- [ ] Step 4: 경력·활동 상수를 작성한다. 스마트뉴비는 `2024년 하반기`, HINT는 `2026.07 - 현재`로 유지한다. 수료 사실을 새로 확인하지 않으면 완료로 바꾸지 않는다.
-- [ ] Step 5: 설계와 본문을 나란히 검수한다. 모플의 미확인 수치·고객 영향, 앱 화면·링크, 예약 경계 해결 주장이 없어야 한다. 글의 맞춤법·중복·역할 분리를 사람이 읽어 확인한다. 정적인 문안 자체를 위한 단위 테스트는 만들지 않는다.
-- [ ] Step 6: 공개 본문과 근거 장부만 명시적으로 선택해 `docs: prepare reviewed portfolio content`로 커밋한다. 민감한 원본·`tmp/`를 추가하지 않는다.
+- [x] Step 1: 기존 Git 유무·작업 파일을 재확인하고 없으면 이 폴더만 로컬 `git init`한다. 기존 PDF·설계 문서는 보존한다.
+- [x] Step 2: 주장 장부에 주장, 대상 페이지, 사용자 확인/문서/코드/테스트 읽기/미검증, 출처, 허용 문장을 기록한다. 개인정보 원문은 복사하지 않는다.
+- [x] Step 3: 5개 상세 본문과 메타를 작성한다. SpeakText 공동 결정·정성 피드백, ForgeSync 현장 가정·정답 없음, 앱 변경 버전 미검증을 각각 확인·한계 절에 넣는다.
+- [x] Step 4: 경력·활동 상수를 작성한다. 스마트뉴비는 `2024년 하반기`, HINT는 `2026.07 - 현재`로 유지한다. 수료 사실을 새로 확인하지 않으면 완료로 바꾸지 않는다.
+- [x] Step 5: 설계와 본문을 나란히 검수한다. 모플의 미확인 수치·고객 영향, 앱 화면·링크, 예약 경계 해결 주장이 없어야 한다. 글의 맞춤법·중복·역할 분리를 사람이 읽어 확인한다. 정적인 문안 자체를 위한 단위 테스트는 만들지 않는다.
+- [x] Step 6: 공개 본문과 근거 장부만 명시적으로 선택해 `docs: prepare reviewed portfolio content`로 커밋한다. 민감한 원본·`tmp/`를 추가하지 않는다.
 
 ### Task 2: 승인된 화면·사진·PDF 준비
 
@@ -125,12 +125,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** 사용자 승인 원본 사진·ForgeSync PDF·공개용 이력서를 소비하고, `ImageMetadata`로 import 가능한 승인 자산과 자산 장부를 제공한다.
 
-- [ ] Step 1: 사진·원본 PDF 경로와 `output/pdf/han-seokjin-resume.pdf`의 존재·2쪽 내용을 확인한다. 승인되지 않은 자소서 파일은 자산 폴더에 복사하지 않는다.
-- [ ] Step 2: 사진은 자연스러운 비율을 유지한 웹용 파생본, ForgeSync는 기존 PDF의 실제 화면 이미지를 추출한다. 텍스트가 읽히는 해상도로 WebP를 만들고 원본을 변경하지 않는다.
-- [ ] Step 3: 모든 자산을 시각 확인하고 크기·출처·원본 페이지·시점·재현 여부를 장부에 기록한다. ForgeSync 화면은 과거 화면임을 필요 시 캡션에 밝힌다.
-- [ ] Step 4: SpeakText 실제 편집 캡처를 추가 조사한다. 없으면 첫 버전은 해당 사례를 이미지 없이 구성한다. 가짜 다중 선택 화면·API 캡처로 대체하지 않는다. 로컬 재현은 별도 후속 작업으로 남겨 제작을 막지 않는다.
-- [ ] Step 5: 승인된 이력서만 `public/resume.pdf`로 복사하고 SHA-256이 원본과 같은지 확인한다. PDF 문자 추출과 시각 검수로 비공개 항목을 확인한다.
-- [ ] Step 6: `assets: prepare approved portfolio media`로 선별 파일만 커밋한다.
+- [x] Step 1: 사진·원본 PDF 경로와 `output/pdf/han-seokjin-resume.pdf`의 존재·2쪽 내용을 확인한다. 승인되지 않은 자소서 파일은 자산 폴더에 복사하지 않는다.
+- [x] Step 2: 사진은 자연스러운 비율을 유지한 웹용 파생본, ForgeSync는 기존 PDF의 실제 화면 이미지를 추출한다. 텍스트가 읽히는 해상도로 WebP를 만들고 원본을 변경하지 않는다.
+- [x] Step 3: 모든 자산을 시각 확인하고 크기·출처·원본 페이지·시점·재현 여부를 장부에 기록한다. ForgeSync 화면은 과거 화면임을 필요 시 캡션에 밝힌다.
+- [x] Step 4: SpeakText 실제 편집 캡처를 추가 조사한다. 없으면 첫 버전은 해당 사례를 이미지 없이 구성한다. 가짜 다중 선택 화면·API 캡처로 대체하지 않는다. 로컬 재현은 별도 후속 작업으로 남겨 제작을 막지 않는다.
+- [x] Step 5: 승인된 이력서만 `public/resume.pdf`로 복사하고 SHA-256이 원본과 같은지 확인한다. PDF 문자 추출과 시각 검수로 비공개 항목을 확인한다.
+- [x] Step 6: `assets: prepare approved portfolio media`로 선별 파일만 커밋한다.
 
 ### Task 3: 정적 기반과 공통 레이아웃
 
@@ -138,12 +138,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** Task 1의 콘텐츠 계약·profile을 소비한다. `withBase`·`SiteLayout`·연락 링크를 Task 4~7에 제공한다.
 
-- [ ] Step 1: 공식 안정 패키지와 engines를 확인하고 최소 Astro·TypeScript·Astro Check 및 개발용 Playwright를 설치·고정한다. 기존 폴더를 덮어쓰는 scaffold는 사용하지 않는다. scripts는 `dev`, `check`, `build`, `preview`, `test:e2e`, `verify`로 정의한다.
-- [ ] Step 2: 정적 설정과 Content Collections 스키마를 작성한다. `SITE_URL` 누락은 로컬 허용, 주어진 값이 HTTPS URL이 아니면 명확한 빌드 오류. `BASE_PATH` 형식도 검증한다.
-- [ ] Step 3: Playwright는 production build의 Astro preview를 `127.0.0.1:4321`에서 실행하도록 설정한다. 첫 테스트는 `homepage has email and resume links`: `mailto:seokjin.han010@gmail.com`과 base가 적용된 PDF 링크 존재를 단언한다. `npm run test:e2e --tests/navigation.spec.ts`는 아직 링크가 없어 실패해야 한다.
-- [ ] Step 4: common layout·본문 바로가기·상단 네비게이션·연락 블록을 구현한다. 모바일에서도 메뉴가 사라지지 않고 44px 터치 영역으로 줄바꿈되게 한다. 프로필 폰트는 Pretendard 원본 라이선스와 함께 자체 제공, `font-display: swap`을 적용한다.
-- [ ] Step 5: `npm run check && npm run build`와 첫 navigation 테스트를 실행한다. 스키마·링크 테스트 통과와 빈 canonical 부재를 확인한다.
-- [ ] Step 6: `feat: add static site foundation and contact navigation`으로 커밋한다.
+- [x] Step 1: 공식 안정 패키지와 engines를 확인하고 최소 Astro·TypeScript·Astro Check 및 개발용 Playwright를 설치·고정한다. 기존 폴더를 덮어쓰는 scaffold는 사용하지 않는다. scripts는 `dev`, `check`, `build`, `preview`, `test:e2e`, `verify`로 정의한다.
+- [x] Step 2: 정적 설정과 Content Collections 스키마를 작성한다. `SITE_URL` 누락은 로컬 허용, 주어진 값이 HTTPS URL이 아니면 명확한 빌드 오류. `BASE_PATH` 형식도 검증한다.
+- [x] Step 3: Playwright는 production build의 Astro preview를 `127.0.0.1:4321`에서 실행하도록 설정한다. 첫 테스트는 `homepage has email and resume links`: `mailto:seokjin.han010@gmail.com`과 base가 적용된 PDF 링크 존재를 단언한다. `npm run test:e2e --tests/navigation.spec.ts`는 아직 링크가 없어 실패해야 한다.
+- [x] Step 4: common layout·본문 바로가기·상단 네비게이션·연락 블록을 구현한다. 모바일에서도 메뉴가 사라지지 않고 44px 터치 영역으로 줄바꿈되게 한다. 프로필 폰트는 Pretendard 원본 라이선스와 함께 자체 제공, `font-display: swap`을 적용한다.
+- [x] Step 5: `npm run check && npm run build`와 첫 navigation 테스트를 실행한다. 스키마·링크 테스트 통과와 빈 canonical 부재를 확인한다.
+- [x] Step 6: `feat: add static site foundation and contact navigation`으로 커밋한다.
 
 ### Task 4: 상세 사례 5개와 문서형 읽기 경험
 
@@ -151,12 +151,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** `getCollection('projects')`, `render(entry)`, Task 3의 layout·base 함수를 사용한다. 다섯 고정 상세 경로·실제 heading anchor·관련 링크를 제공한다.
 
-- [ ] Step 1: `all five detail pages work by direct navigation` 테스트를 추가한다. 각 URL로 바로 이동해 프로젝트 제목, H2 `확인`, `한계와 다음 단계`, 해당 목차 anchor와 메인 복귀 링크를 단언한다. `npm run test:e2e --tests/navigation.spec.ts`가 상세 페이지 부재로 실패하는지 확인한다.
-- [ ] Step 2: `getStaticPaths()`로 컬렉션의 다섯 ID를 생성한다. `render` 결과의 Content와 headings를 `ProjectLayout`에 넘긴다. 잘못된 ID는 이후 404로 처리한다.
-- [ ] Step 3: 상단 요약·역할·유형·기간·상태, Markdown 본문, H2 목차, 관련 사례를 구현한다. 좁은 본문과 넓은 이미지의 위계를 설정하고 모바일에서는 목차를 일반 흐름에 둔다.
-- [ ] Step 4: Figure는 Astro Image로 크기와 alt를 제공하고 캡션·출처 링크를 이미지 외부 HTML로 남긴다. 큰 화면 원본은 링크로 제공하고 modal 확대는 만들지 않는다.
-- [ ] Step 5: content 테스트 `shared-life has no product image or recruitment link`는 앱 상세에 제품 이미지·외부 모집 CTA가 없고 개발 중·새 버전 검증 전 문장이 있음을 확인한다. `case outcomes retain their scope`는 SpeakText 팀 내부 피드백, ForgeSync 불량 정확도 미검증, 예약 충돌 한계가 렌더링됨을 단언한다. 구현 전 실패를 확인한 뒤 공개 본문과 템플릿 연결을 완성한다.
-- [ ] Step 6: `npm run check && npm run build` 및 navigation·content 테스트가 통과하면 `feat: publish five evidence-based case studies`로 커밋한다.
+- [x] Step 1: `all five detail pages work by direct navigation` 테스트를 추가한다. 각 URL로 바로 이동해 프로젝트 제목, H2 `확인`, `한계와 다음 단계`, 해당 목차 anchor와 메인 복귀 링크를 단언한다. `npm run test:e2e --tests/navigation.spec.ts`가 상세 페이지 부재로 실패하는지 확인한다.
+- [x] Step 2: `getStaticPaths()`로 컬렉션의 다섯 ID를 생성한다. `render` 결과의 Content와 headings를 `ProjectLayout`에 넘긴다. 잘못된 ID는 이후 404로 처리한다.
+- [x] Step 3: 상단 요약·역할·유형·기간·상태, Markdown 본문, H2 목차, 관련 사례를 구현한다. 좁은 본문과 넓은 이미지의 위계를 설정하고 모바일에서는 목차를 일반 흐름에 둔다.
+- [x] Step 4: Figure는 Astro Image로 크기와 alt를 제공하고 캡션·출처 링크를 이미지 외부 HTML로 남긴다. 큰 화면 원본은 링크로 제공하고 modal 확대는 만들지 않는다.
+- [x] Step 5: content 테스트 `shared-life has no product image or recruitment link`는 앱 상세에 제품 이미지·외부 모집 CTA가 없고 개발 중·새 버전 검증 전 문장이 있음을 확인한다. `case outcomes retain their scope`는 SpeakText 팀 내부 피드백, ForgeSync 불량 정확도 미검증, 예약 충돌 한계가 렌더링됨을 단언한다. 구현 전 실패를 확인한 뒤 공개 본문과 템플릿 연결을 완성한다.
+- [x] Step 6: `npm run check && npm run build` 및 navigation·content 테스트가 통과하면 `feat: publish five evidence-based case studies`로 커밋한다.
 
 ### Task 5: 메인 이야기와 시각 구성 완성
 
@@ -164,12 +164,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** Task 1 profile과 컬렉션의 summary·lead·featured·order·hero를 소비한다. 메인 `#cases`, `#experience`, `#about`, `#contact`를 탐색 대상으로 제공한다.
 
-- [ ] Step 1: 첫 화면 이름·정확한 핵심 제목과 메인 사례 순서를 검증하는 navigation 시나리오를 추가해 현재 미완성 화면에서 실패를 확인한다. 의미 있는 링크·heading만 검사하며 CSS 구현을 테스트에 복제하지 않는다.
-- [ ] Step 2: 큰 제목·작은 사진·관점 소개를 배치한다. 메인 H1은 `누구의 어떤 문제인지부터 생각합니다.`이며 이름은 즉시 식별 가능해야 한다.
-- [ ] Step 3: SpeakText → ForgeSync → 현재 앱을 구성한다. 실제 이미지가 있는 사례는 크게, 현재 앱은 기획 전후의 글 비교로 배치한다. 기간은 시간순이라는 잘못된 인상을 주지 않게 표기한다.
-- [ ] Step 4: 모플·스마트뉴비 실무 경험, 심화 사례 두 개, 학력·활동·관심과 연락을 배치한다. summary와 상세의 성과 표현이 달라지지 않는지 읽어 확인한다.
-- [ ] Step 5: 1440px·768px·390px에서 실제 캡처를 비교해 여백·한글 제목 줄바꿈·사진 크기·이미지 가독성을 수정한다. 내비게이션이 데스크톱 한 줄, 모바일에서 본문을 가리지 않는지 확인한다.
-- [ ] Step 6: navigation·content 테스트 및 정적 빌드가 통과하면 `feat: compose the portfolio narrative homepage`로 커밋한다.
+- [x] Step 1: 첫 화면 이름·정확한 핵심 제목과 메인 사례 순서를 검증하는 navigation 시나리오를 추가해 현재 미완성 화면에서 실패를 확인한다. 의미 있는 링크·heading만 검사하며 CSS 구현을 테스트에 복제하지 않는다.
+- [x] Step 2: 큰 제목·작은 사진·관점 소개를 배치한다. 메인 H1은 `누구의 어떤 문제인지부터 생각합니다.`이며 이름은 즉시 식별 가능해야 한다.
+- [x] Step 3: SpeakText → ForgeSync → 현재 앱을 구성한다. 실제 이미지가 있는 사례는 크게, 현재 앱은 기획 전후의 글 비교로 배치한다. 기간은 시간순이라는 잘못된 인상을 주지 않게 표기한다.
+- [x] Step 4: 모플·스마트뉴비 실무 경험, 심화 사례 두 개, 학력·활동·관심과 연락을 배치한다. summary와 상세의 성과 표현이 달라지지 않는지 읽어 확인한다.
+- [x] Step 5: 1440px·768px·390px에서 실제 캡처를 비교해 여백·한글 제목 줄바꿈·사진 크기·이미지 가독성을 수정한다. 내비게이션이 데스크톱 한 줄, 모바일에서 본문을 가리지 않는지 확인한다.
+- [x] Step 6: navigation·content 테스트 및 정적 빌드가 통과하면 `feat: compose the portfolio narrative homepage`로 커밋한다.
 
 ### Task 6: 모바일·접근성·실패 상태 검증
 
@@ -177,12 +177,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** Task 3~5의 실제 링크·heading·본문 DOM을 소비한다. 새 데이터 계약은 추가하지 않는다.
 
-- [ ] Step 1: `reading works without javascript`는 JS 비활성 context에서 메인→상세→연락 링크와 본문 표시를 단언한다. `keyboard reaches content and contact`는 Tab으로 skip link와 연락 링크 접근·focus 표시를 확인한다.
-- [ ] Step 2: `narrow korean content does not overflow`는 폭 360·390에서 메인과 가장 긴 상세의 `scrollWidth <= clientWidth`를 검사한다. `reduced motion disables smooth scrolling`은 reduce 환경에서 root computed scroll-behavior가 smooth가 아님을 단언한다. 기본 위반이 있으면 실패를 확인하고 CSS를 수정한다. 초기부터 충족하는 경우 테스트를 위해 위반을 만들지 않는다.
-- [ ] Step 3: `failed images retain context`는 이미지 요청 차단 후 캡션·출처 링크·본문이 보이는지 확인한다. `.astro` 오류 화면이나 비어 있는 섹션으로 바뀌지 않아야 한다.
-- [ ] Step 4: 404 페이지를 구현하고 `/404.html`의 복귀 링크를 검사한다. 배포 서버에서 실제 없는 경로의 HTTP 404 동작은 Task 8 안내에 별도 확인 항목으로 둔다.
-- [ ] Step 5: 키보드로 실제 탐색하고 200% 확대, 긴 한글·URL, 360/768/1440 화면, 이미지 실패를 시각 확인한다. 본문 대비 4.5:1, 타깃 약 44px, 초점이 header에 가려지지 않는지 측정한다.
-- [ ] Step 6: 전체 Playwright 검사 통과 후 `fix: refine responsive reading and accessible navigation`으로 커밋한다.
+- [x] Step 1: `reading works without javascript`는 JS 비활성 context에서 메인→상세→연락 링크와 본문 표시를 단언한다. `keyboard reaches content and contact`는 Tab으로 skip link와 연락 링크 접근·focus 표시를 확인한다.
+- [x] Step 2: `narrow korean content does not overflow`는 폭 360·390에서 메인과 가장 긴 상세의 `scrollWidth <= clientWidth`를 검사한다. `reduced motion disables smooth scrolling`은 reduce 환경에서 root computed scroll-behavior가 smooth가 아님을 단언한다. 기본 위반이 있으면 실패를 확인하고 CSS를 수정한다. 초기부터 충족하는 경우 테스트를 위해 위반을 만들지 않는다.
+- [x] Step 3: `failed images retain context`는 이미지 요청 차단 후 캡션·출처 링크·본문이 보이는지 확인한다. `.astro` 오류 화면이나 비어 있는 섹션으로 바뀌지 않아야 한다.
+- [x] Step 4: 404 페이지를 구현하고 `/404.html`의 복귀 링크를 검사한다. 배포 서버에서 실제 없는 경로의 HTTP 404 동작은 Task 8 안내에 별도 확인 항목으로 둔다.
+- [x] Step 5: 키보드로 실제 탐색하고 200% 확대, 긴 한글·URL, 360/768/1440 화면, 이미지 실패를 시각 확인한다. 본문 대비 4.5:1, 타깃 약 44px, 초점이 header에 가려지지 않는지 측정한다.
+- [x] Step 6: 전체 Playwright 검사 통과 후 `fix: refine responsive reading and accessible navigation`으로 커밋한다.
 
 ### Task 7: 메타데이터·공개 출력·하위 경로 검증
 
@@ -190,12 +190,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** `SITE_URL`, `BASE_PATH`, `dist/`, 모든 페이지 메타·정적 자산을 소비한다. `npm run verify`와 공개용 출력 검사 명령을 제공한다.
 
-- [ ] Step 1: Node 기본 `assert`·파일 읽기로 검사 스크립트를 작성한다. 다섯 `dist/projects/<id>/index.html`, 메인, 404, PDF와 모든 로컬 href/src의 존재를 검사한다. HTML의 내부 anchor는 ID가 존재해야 한다. 원격 링크는 형식과 사용 목적을 검수하며 접속 성공을 빌드의 필수 조건으로 삼지 않는다.
-- [ ] Step 2: 출력 allowlist는 HTML·CSS·JS·이미지·WOFF2·라이선스·이력서·메타 파일뿐이다. docx·원본 취업 PDF·`docs/`·`tmp/`·source map·개인 절대 경로가 dist에 없음을 검사한다. PDF는 승인 파일과 hash 일치로 확인한다. 문자열 검사만으로 개인정보 안전이 증명된다고 주장하지 않는다.
-- [ ] Step 3: 로컬 빌드에서 canonical·sitemap·robots가 생기지 않음을 확인하고, `SITE_URL=https://example.invalid BASE_PATH=/portfolio/ npm run build`에서 상세·이미지·PDF·복귀 링크에 base가 한 번만 붙는지 확인한다. `.invalid`는 로컬 시험 전용이며 최종 dist로 전달하지 않는다.
-- [ ] Step 4: SITE_URL이 있는 빌드에만 공식 sitemap 통합과 robots를 추가한다. `[metadata].txt.ts`의 `getStaticPaths()`는 SITE_URL이 있으면 `metadata: 'robots'` 한 경로를, 없으면 빈 배열을 반환한다. 페이지별 한국어 title·description·`lang=ko`·canonical·OG를 제공하고 OG는 이름과 핵심 문장만으로 만든다. 앱 화면은 사용하지 않는다.
-- [ ] Step 5: navigation 테스트에 환경변수 `TEST_BASE_PATH`를 적용해 `/portfolio/` 직접 접근·새로고침·PDF를 확인한다. `SITE_URL=https://example.invalid BASE_PATH=/portfolio/ TEST_BASE_PATH=/portfolio/ npm run verify` 후 일반 환경 `npm run verify`를 다시 실행해 시험 주소를 제거한다.
-- [ ] Step 6: 모든 최종 공개 본문·이미지·PDF를 사람이 한 번 더 검수하고 `feat: verify static output and sharing metadata`로 커밋한다.
+- [x] Step 1: Node 기본 `assert`·파일 읽기로 검사 스크립트를 작성한다. 다섯 `dist/projects/<id>/index.html`, 메인, 404, PDF와 모든 로컬 href/src의 존재를 검사한다. HTML의 내부 anchor는 ID가 존재해야 한다. 원격 링크는 형식과 사용 목적을 검수하며 접속 성공을 빌드의 필수 조건으로 삼지 않는다.
+- [x] Step 2: 출력 allowlist는 HTML·CSS·JS·이미지·WOFF2·라이선스·이력서·메타 파일뿐이다. docx·원본 취업 PDF·`docs/`·`tmp/`·source map·개인 절대 경로가 dist에 없음을 검사한다. PDF는 승인 파일과 hash 일치로 확인한다. 문자열 검사만으로 개인정보 안전이 증명된다고 주장하지 않는다.
+- [x] Step 3: 로컬 빌드에서 canonical·sitemap·robots가 생기지 않음을 확인하고, `SITE_URL=https://example.invalid BASE_PATH=/portfolio/ npm run build`에서 상세·이미지·PDF·복귀 링크에 base가 한 번만 붙는지 확인한다. `.invalid`는 로컬 시험 전용이며 최종 dist로 전달하지 않는다.
+- [x] Step 4: SITE_URL이 있는 빌드에만 공식 sitemap 통합과 robots를 추가한다. `[metadata].txt.ts`의 `getStaticPaths()`는 SITE_URL이 있으면 `metadata: 'robots'` 한 경로를, 없으면 빈 배열을 반환한다. 페이지별 한국어 title·description·`lang=ko`·canonical·OG를 제공하고 OG는 이름과 핵심 문장만으로 만든다. 앱 화면은 사용하지 않는다.
+- [x] Step 5: navigation 테스트에 환경변수 `TEST_BASE_PATH`를 적용해 `/portfolio/` 직접 접근·새로고침·PDF를 확인한다. `SITE_URL=https://example.invalid BASE_PATH=/portfolio/ TEST_BASE_PATH=/portfolio/ npm run verify` 후 일반 환경 `npm run verify`를 다시 실행해 시험 주소를 제거한다.
+- [x] Step 6: 모든 최종 공개 본문·이미지·PDF를 사람이 한 번 더 검수하고 `feat: verify static output and sharing metadata`로 커밋한다.
 
 `verify`는 `astro check` → `astro build` → `node scripts/check-output.mjs` → `playwright test` 순서다. 별도 테스트 러너·HTML 파서를 검사 편의만을 위해 추가하지 않는다. 경로 추출은 이 사이트가 생성하는 quoted href/src와 srcset의 URL을 다루고 외부 프로토콜을 건너뛰며 base 접두사를 제거한 뒤 dist와 비교한다.
 
@@ -205,12 +205,12 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 
 **Interfaces:** 최종 코드·dist·실행 결과와 승인 PDF를 소비한다. 사용자가 실행·수정·배포할 수 있는 안내와 검토 가능한 로컬 사이트를 제공한다.
 
-- [ ] Step 1: `npm ci && npm run verify`로 깨끗한 의존성 설치와 전체 검증을 실행한다. 오류가 있으면 해당 작업을 수정한 뒤 관련 검사부터 다시 수행한다.
-- [ ] Step 2: 최종 메인과 사례 5개의 데스크톱·모바일 화면을 확인한다. 확인하지 않은 브라우저·성능·외부 서비스에 성공 주장을 붙이지 않는다.
-- [ ] Step 3: 검증 기록에 실행 명령·결과·화면 크기·알려진 제한·미확보 SpeakText 시각 자료 상태를 남긴다. HINT 상태와 상대 시점 표현을 공개 직전에 다시 확인할 항목으로 적는다.
-- [ ] Step 4: README에 실행·콘텐츠 수정·승인 PDF 갱신 방법을, deployment 문서에 실제 SITE_URL/BASE_PATH 설정·GitHub Pages 적용 방법·실제 404/캐시/링크 점검 절차를 작성한다. 원격 생성·푸시·배포를 실행하지 않는다.
-- [ ] Step 5: 로컬 사이트와 결과물을 사용자에게 보여준다. 외부 공개를 진행하려면 실제 주소·호스팅 대상이 정해지고 공개 단계가 요청돼야 한다.
-- [ ] Step 6: 문서와 검증 결과를 `docs: record site verification and deployment instructions`로 커밋한다. 작업 트리 상태와 커밋을 확인하고 완료 보고한다.
+- [x] Step 1: `npm ci && npm run verify`로 깨끗한 의존성 설치와 전체 검증을 실행한다. 오류가 있으면 해당 작업을 수정한 뒤 관련 검사부터 다시 수행한다.
+- [x] Step 2: 최종 메인과 사례 5개의 데스크톱·모바일 화면을 확인한다. 확인하지 않은 브라우저·성능·외부 서비스에 성공 주장을 붙이지 않는다.
+- [x] Step 3: 검증 기록에 실행 명령·결과·화면 크기·알려진 제한·미확보 SpeakText 시각 자료 상태를 남긴다. HINT 상태와 상대 시점 표현을 공개 직전에 다시 확인할 항목으로 적는다.
+- [x] Step 4: README에 실행·콘텐츠 수정·승인 PDF 갱신 방법을, deployment 문서에 실제 SITE_URL/BASE_PATH 설정·GitHub Pages 적용 방법·실제 404/캐시/링크 점검 절차를 작성한다. 원격 생성·푸시·배포를 실행하지 않는다.
+- [x] Step 5: 로컬 사이트와 결과물을 사용자에게 보여준다. 외부 공개를 진행하려면 실제 주소·호스팅 대상이 정해지고 공개 단계가 요청돼야 한다.
+- [x] Step 6: 문서와 검증 결과를 `docs: record site verification and deployment instructions`로 커밋한다. 작업 트리 상태와 커밋을 확인하고 완료 보고한다.
 
 ## 3. 자기 검토와 인수 기준
 
@@ -230,3 +230,6 @@ docs/deployment.md              로컬 실행과 배포 준비·환경변수
 ## 4. 이번 계획에 포함하지 않는 것
 
 실제 배포·사용자 지정 도메인 연결, 영어·다크 테마, 계정·CMS·연락 폼, 분석 추적, Velog 런타임 수집, 현재 앱 화면·모집 링크, 회사 내부 자료, 미확인 성과 수치, 사이트와 무관한 기존 프로젝트 버그 수정은 포함하지 않는다.
+
+
+실행 완료: 2026-10-18. 조정 사항과 실제 검사 결과는 `docs/verification/2026-10-18-site-review.md` 참조. 공개 배포 없이 로컬 사이트와 작업 브랜치를 유지한다.
