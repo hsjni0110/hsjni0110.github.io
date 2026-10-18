@@ -4,7 +4,7 @@ export const profile = {
   githubUrl: 'https://github.com/hsjni0110',
   velogUrl: 'https://velog.io/@hsjni0110/posts',
   experience: [
-    { company: '모플', period: '2025.09 — 2026.03', role: '백엔드 · 데이터 파이프라인', description: '매일 늘어나는 데이터를 처리하는 배치의 지연 원인을 분석했습니다. Citus의 부하 집중과 데이터 이동, SQL 실행 계획을 살펴보고 분산 테이블에 직접 적재하는 dbt Custom Incremental을 구현해 처리 시간을 줄였습니다.', contribution: '병목 분석부터 개선안 검토·구현·검증까지 직접 맡았으며, 적재 전후 건수와 업무 규칙을 비교해 결과를 확인했습니다.', stack: 'PostgreSQL · Citus · dbt · SQL' },
+    { company: '모플', period: '2025.09 — 2026.03', role: '백엔드 · 데이터 파이프라인', description: '매일 늘어나는 데이터를 처리하는 배치의 지연 원인을 분석했습니다. Citus의 부하 집중과 데이터 이동, SQL 실행 계획을 살펴보고 분산 테이블에 직접 적재하는 dbt Custom Incremental을 구현해 처리 시간을 줄였습니다.', contribution: '적재 전후 데이터 건수와 업무 규칙을 비교해 결과를 검증했습니다.', stack: 'PostgreSQL · Citus · dbt · SQL' },
     { company: '스마트뉴비', period: '2024년 하반기', role: '백엔드 개발', description: '인턴십 매칭 플랫폼 인턴메이트의 공고 관리 API와 사용자 정보 기반 추천 로직을 개발했습니다. 인증·파일 처리 기능을 구현하고 주요 API 인수 테스트 작성과 코드 리뷰에도 참여했습니다.', contribution: 'MapStruct로 객체 변환의 반복 코드를 줄이고, FixtureMonkey로 테스트 데이터 생성을 간소화했습니다.', stack: 'Java · Spring Boot · MySQL · Redis · AWS S3' },
   ],
   education: [
