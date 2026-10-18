@@ -1,4 +1,6 @@
 from pathlib import Path
+from xml.sax.saxutils import escape
+
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
 from reportlab.pdfbase import pdfmetrics
@@ -6,92 +8,157 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.pagesizes import A4
-from xml.sax.saxutils import escape
 
-ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'output/pdf/han-seokjin-resume.pdf'
-pdfmetrics.registerFont(TTFont('Korean','/System/Library/Fonts/Supplemental/Arial Unicode.ttf'))
-pdfmetrics.registerFont(TTFont('LatinBold','/System/Library/Fonts/Supplemental/Arial Bold.ttf'))
-W,H=A4
-M=45
-INK=HexColor('#17191d');GRAY=HexColor('#59616c');BLUE=HexColor('#1858a8');LINE=HexColor('#dde2e8')
-c=canvas.Canvas(str(OUT),pagesize=A4)
-c.setTitle('한석진 | 공개용 이력서');c.setAuthor('한석진');c.setSubject('업무 경험과 문제 해결 사례')
-y=H-M
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / 'output/pdf/han-seokjin-resume.pdf'
+pdfmetrics.registerFont(TTFont('Korean', '/System/Library/Fonts/Supplemental/Arial Unicode.ttf'))
+W, H = A4
+M = 45
+INK = HexColor('#17191d')
+GRAY = HexColor('#59616c')
+BLUE = HexColor('#1858a8')
+LINE = HexColor('#dde2e8')
+TOTAL_PAGES = 3
+c = canvas.Canvas(str(OUT), pagesize=A4)
+c.setTitle('한석진 | 공개용 이력서')
+c.setAuthor('한석진')
+c.setSubject('업무 경험, 프로젝트, 교육과 활동')
+y = H - M
+page_number = 1
 
-def text(s,size=9.4,color=INK,space=4,leading=None):
- global y
- st=ParagraphStyle('p',fontName='Korean',fontSize=size,leading=leading or size*1.55,textColor=color,wordWrap=None,splitLongWords=0,allowWidows=0,allowOrphans=0)
- p=Paragraph(s,st);_,h=p.wrap(W-2*M,1000);p.drawOn(c,M,y-h);y-=h+space
+
+def text(s, size=10.2, color=INK, space=6, leading=None):
+    global y
+    style = ParagraphStyle('p', fontName='Korean', fontSize=size,
+                           leading=leading or size * 1.5, textColor=color,
+                           wordWrap=None, splitLongWords=0)
+    paragraph = Paragraph(s, style)
+    _, height = paragraph.wrap(W - 2 * M, 1000)
+    if y - height < 49:
+        raise RuntimeError(f'page {page_number} text overflow: {y - height}')
+    paragraph.drawOn(c, M, y - height)
+    y -= height + space
+
 
 def gap(n=8):
- global y;y-=n
+    global y
+    y -= n
+
 
 def section(s):
- global y
- gap(10);text(s,12,space=7)
- c.setStrokeColor(LINE);c.setLineWidth(.6);c.line(M,y+2,W-M,y+2);gap(6)
+    gap(10)
+    text(s, 12, space=7)
+    c.setStrokeColor(LINE)
+    c.setLineWidth(.6)
+    c.line(M, y + 2, W - M, y + 2)
+    gap(6)
 
-def title(s,meta=None):
- text(s,11.5,space=2)
- if meta:text(meta,8.4,GRAY,space=5)
 
-def bullet(label,s):
- text(escape(label),9.4,BLUE,space=2,leading=13)
- text(escape(s),10.2,space=6,leading=15.2)
+def title(s, meta):
+    text(s, 11.5, space=3)
+    text(meta, 8.5, GRAY, space=7)
 
-def link(label,url):
- text('<link href="'+escape(url,{'"':'&quot;'})+'" color="#1858a8">'+escape(label)+'</link>',8.2,space=5)
 
-def footer(n):
- c.setStrokeColor(LINE);c.line(M,36,W-M,36)
- c.setFillColor(GRAY);c.setFont('Korean',8);c.drawString(M,23,'한석진  ·  seokjin.han010@gmail.com')
- c.drawRightString(W-M,23,f'2026.10.18  |  {n} / 2')
- if y<48:raise RuntimeError(f'page {n} overflow: {y}')
+def detail(label, body):
+    text(escape(label), 9.4, BLUE, space=3, leading=13)
+    text(escape(body), space=5)
 
-def newpage():
- global y
- footer(1);c.showPage();y=H-M
- text('한석진',16,space=2);text('프로젝트 · 구현한 기능과 검증 범위',9,GRAY,space=3)
 
-text('한석진',29,space=8)
-text('문제를 정의하고,<br/>구현과 검증까지 맡는 개발자',15.2,space=10,leading=23)
-text('<link href="mailto:seokjin.han010@gmail.com" color="#1858a8">seokjin.han010@gmail.com</link>  ·  <link href="https://github.com/hsjni0110" color="#1858a8">GitHub</link>  ·  <link href="https://velog.io/@hsjni0110/posts" color="#1858a8">Velog</link>',9.2,space=4)
+def link(label, url):
+    text('<link href="' + escape(url, {'"': '&quot;'}) + '" color="#1858a8">'
+         + escape(label) + '</link>', 8.4, space=7)
+
+
+def footer():
+    c.setStrokeColor(LINE)
+    c.line(M, 36, W - M, 36)
+    c.setFillColor(GRAY)
+    c.setFont('Korean', 8)
+    c.drawString(M, 23, '한석진  ·  seokjin.han010@gmail.com')
+    c.drawRightString(W - M, 23, f'2026.10.18  |  {page_number} / {TOTAL_PAGES}')
+
+
+def newpage(subtitle):
+    global y, page_number
+    footer()
+    c.showPage()
+    page_number += 1
+    y = H - M
+    text('한석진', 16, space=2)
+    text(subtitle, 9, GRAY, space=5)
+
+
+text('한석진', 29, space=8)
+text('문제를 정의하고,<br/>구현과 검증까지 맡는 개발자', 15.2, space=10, leading=23)
+text('<link href="mailto:seokjin.han010@gmail.com" color="#1858a8">seokjin.han010@gmail.com</link>  ·  '
+     '<link href="https://github.com/hsjni0110" color="#1858a8">GitHub</link>  ·  '
+     '<link href="https://velog.io/@hsjni0110/posts" color="#1858a8">Velog</link>', 9.2, space=4)
 section('업무 경험')
 title('모플 | 백엔드·데이터 파이프라인', '2025.09 - 2026.03 · 수요예측·재고관리 솔루션')
-bullet('일일 데이터 배치 시간 단축', '매일 늘어나는 데이터의 배치 처리 지연 개선.')
-bullet('Citus 병목 분석·증분 적재 구현', 'Citus 중앙 노드의 부하 집중·데이터 이동과 SQL·dbt 실행 계획 분석. 분산 테이블 직접 적재용 Custom Incremental 구현.')
-bullet('적재 건수·업무 규칙 검증', '적재 전후 건수·업무 규칙 검증. 원인 분석부터 개선안 검토·구현·검증까지 직접 담당.')
-text('PostgreSQL · Citus · dbt · SQL',8.4,GRAY,space=8)
-title('스마트뉴비 | 백엔드 개발', '2024년 하반기 · 인턴십 매칭 플랫폼 인턴메이트')
-bullet('공고·추천·인증 API 개발', '인턴메이트의 대외활동·채용공고, 사용자 정보 기반 추천, 인증·파일 처리 개발.')
-bullet('반복 매핑·테스트 데이터 작업 개선', 'MapStruct·FixtureMonkey 도입. 주요 API 인수 테스트 작성과 GitHub 코드 리뷰 참여.')
-text('Java · Spring Boot · MySQL · Redis · AWS S3',8.4,GRAY,space=2)
+detail('일일 배치 지연의 원인 분석',
+       '매일 늘어나는 데이터를 처리하는 배치의 실행 시간이 길어져 원인을 분석했습니다. SQL 실행 계획과 dbt 증분 적재 과정을 살펴보고, Citus Coordinator에 연산이 집중되는 구간과 불필요한 데이터 이동을 확인했습니다.')
+detail('분산 테이블 직접 적재 방식 구현',
+       '기존 dbt Incremental의 중간 처리 단계를 분석하고, 분산 대상 테이블에 직접 적재하는 Custom Incremental을 구현해 처리 시간을 줄였습니다. 분산 키·조인 조건과 Worker-local 처리 방식도 함께 검토했습니다.')
+detail('적재 결과 검증과 개선 전 과정 담당',
+       '속도 개선 이후에는 적재 전후 데이터 건수와 업무 규칙을 비교해 결과를 확인했습니다. 병목 분석부터 개선안 검토, 구현과 결과 검증까지 직접 담당했습니다.')
+text('PostgreSQL · Citus · dbt · SQL', 8.4, GRAY, space=10)
+title('스마트뉴비 | 백엔드 개발', '2024.07 - 2024.12 · 인턴십 매칭 플랫폼 인턴메이트')
+detail('공고·맞춤 추천·인증·파일 처리 개발',
+       'Java·Spring Boot·MySQL로 대외활동·채용공고 관리 API와 사용자 정보 기반 공고 추천 로직을 개발했습니다. Redis·AWS S3를 활용한 인증과 파일 처리 기능도 구현했습니다.')
+detail('반복 코드·테스트 데이터 생성 작업 개선',
+       'DTO·Entity 변환의 반복 코드를 줄이기 위해 MapStruct를 도입하고, FixtureMonkey로 테스트 데이터 생성을 간소화했습니다. 주요 API 인수 테스트 작성과 GitHub 코드 리뷰에 참여해 기능 동작을 확인했습니다.')
+text('Java · Spring Boot · MySQL · Redis · AWS S3', 8.4, GRAY, space=3)
+section('학력·자격')
+title('충남대학교 컴퓨터융합학부 | 학사 졸업', '2020.03 - 2026.02')
+text('재학 중 백엔드 개발 교육과 팀 프로젝트에 참여했고, 스타트업의 서비스 개발·데이터 처리 업무를 경험했습니다. 졸업 이후에는 제조 도메인 교육과 개인 제품 개발로 관심 영역을 넓히고 있습니다.', size=9.8)
+text('SQLD · TOEIC Speaking IH', 9, GRAY)
+
+newpage('프로젝트 · 문제와 직접 수행한 작업')
 section('대표 프로젝트')
 title('SpeakText | 발화자 확인·수정 기능 구현', '팀 프로젝트 · 2025년 · 스크립트 생성·인물 동기화·음성 생성·편집 화면과 API')
-bullet('음성 청취로 발화자 연결 오류 확인', '팀원들과 생성 음성을 들으며 대사·발화자 연결 오류 확인. 원문 분할 시 같은 인물의 목소리 변화와 대사 오연결 가능성.')
-bullet('작가의 인물·대사 수정 기능 도입', 'LLM 정확도 개선만으로 오류를 없애기 어렵다는 팀의 판단에 따라 검토·수정 기능 도입 결정.')
-bullet('발화자 색 구분 제안·화면·API 구현', '스크립트 생성·인물 동기화·음성 생성 담당. 색 구분 개선안 제안과 편집 화면·일괄 수정 API 구현.')
-bullet('팀 내부의 대사 탐색·수정 피드백', '색 구분 이후 잘못 연결된 대사를 찾고 수정하기 편해졌다는 반응. 실제 작가 대상 시험·수정 시간 측정은 미실시.')
+detail('인물 연결 오류와 작가의 직접 수정 기능',
+       '긴 원문을 나눠 처리할 때 같은 인물이 여러 인물로 나뉘는 문제를 예상해 이전 인물 정보와 인물 ID를 연결했습니다. 이후 팀원들과 생성 음성을 들으며 발화자 연결 오류를 확인했습니다. 팀은 LLM 정확도 개선만으로 오류를 없애기 어렵다고 보고 작가의 검토·수정 기능 도입을 결정했습니다.')
+detail('발화자 색 구분 제안과 화면·일괄 수정 API 구현',
+       '스크립트 생성·등장인물 동기화·음성 생성을 주로 맡았습니다. 검토 단계에서는 잘못 연결된 대사를 찾기 쉽도록 발화자별 색 구분을 제안하고 화면과 일괄 수정 API를 구현했습니다. 작가 검토 단계 도입은 팀의 공동 결정이며, 색 구분 개선안과 해당 구현은 제가 담당했습니다.')
+detail('팀 내부의 편집 기능 점검',
+       '팀원들은 색 구분 이후 잘못 연결된 대사를 찾고 수정하기 편해졌다고 평가했습니다. 이는 내부 사용의 정성적 반응이며, 실제 작가 대상 사용성 시험이나 수정 시간 측정은 진행하지 않았습니다.')
 link('SpeakText 코드·PR', 'https://github.com/SpeakText/backend')
-newpage()
-section('대표 프로젝트 계속')
-title('ForgeSync | 기록 누락·정지 구분과 설비 기록 조회', '개인 프로젝트 · 2026년 · 기획·데이터 설계·백엔드·프런트엔드·검증')
-bullet('엔지니어의 설비 구간·원본 기록 조회', '정지·가공 시간 변화 구간과 당시 기록을 조회하는 도구 구현. 아카데미·자료 조사로 가정한 상황이며 현장 인터뷰는 미실시.')
-bullet('기록 누락 분리·가공 시간 중심 판정', '기록 누락을 정지에서 제외. 센서 최대 편차 대신 가공 시간 중심으로 판정하고 센서값은 참고 정보로 제공.')
-bullet('하루 요약에서 원본 기록까지 연결', '요약 → 구간 선택 → 당시 기록 조회 화면 구성. 기획·데이터·백엔드·프런트엔드·검증 담당, AI 코딩 에이전트 활용.')
-bullet('설비 1대·하루 기록으로 검증 범위 제한', 'NIST 공개 CNC 기록 활용. 실제 정상·불량 정답이 없어 탐지 정확도 개선은 미검증. 현장 사용성도 미검증.')
+title('ForgeSync | 기록 누락·정지 구분과 설비 기록 조회', '개인 프로젝트 · 2026년 · 기획·데이터·백엔드·프런트엔드·검증 담당')
+detail('엔지니어의 설비 구간 조사와 원본 기록 조회',
+       '정지하거나 가공 시간이 달라진 구간을 조사하는 엔지니어를 가정했습니다. 하루 상태 요약에서 구간을 선택하고 당시 상태·원본 기록으로 내려가는 조회 화면을 구현했습니다. 아카데미와 자료 조사를 바탕으로 한 가정이며 현장 인터뷰는 진행하지 않았습니다.')
+detail('기록 누락 분리와 가공 시간 중심 판정',
+       '기록이 없다는 사실만으로 설비 정지를 확정할 수 없어 두 상태를 분리했습니다. 미세한 센서 편차가 전체 판정을 좌우하던 분석 방식은 가공 시간 중심으로 변경했습니다. 센서값은 조사 참고 정보로 제공하고, 같은 시점의 경고를 정지 원인으로 단정하지 않았습니다.')
+detail('공개 설비 기록을 활용한 구현·검증 범위',
+       'NIST 공개 CNC 설비 1대의 하루 기록으로 구현했으며 AI 코딩 에이전트를 활용했습니다. 도메인 규칙과 검증 체계는 직접 설계했습니다. 실제 정상·불량 정답이 없어 탐지 정확도 개선은 입증하지 못했고, 현장 사용성도 아직 검증하지 않았습니다.')
 link('ForgeSync 코드·설계·평가 기록', 'https://github.com/hsjni0110/forge-sync')
-gap(4)
 title('캐릭터와 각자의 일을 함께하는 동시생활 앱', '개인 사이드 프로젝트 · 데스크톱·모바일 개발 중')
-bullet('혼자 시작·지속하기 어려운 상황 탐색', '개인 경험에서 출발. 커뮤니티의 유사한 어려움과 함께 공부하는 영상·온라인 작업 공간 활용 사례 관찰.')
-bullet('일정 입력에서 캐릭터 동행으로 전환', '캐릭터 곁에서 각자의 일을 하는 방식으로 기획 변경. 입력·조작을 줄이고 함께한 시간에 따라 관계가 쌓이는 앱 개발 중.')
-bullet('기존 버전 피드백 수집·새 버전 개발', '기존 버전의 반응과 새 방향의 효과를 구분. 변경 버전은 아직 사용자 검증 전.')
-section('추가 문제 해결 사례')
-bullet('DB FleetOps · 백업 복원·테이블 확인', '임시 DB 복원·테이블 조회와 정리 실패 기록 구현. 전체 데이터 일치 검증·복원 실패 시 정리 보장은 후속 과제.')
-bullet('예약 시스템 · 좌석 선점·미결제 해제', '결제 중 선점과 5분 미결제 만료 구현. 5분은 학습용 정책이며 결제 이벤트 지연과 만료의 충돌은 미해결.')
-text('<link href="https://github.com/hsjni0110/db-fleet-ops" color="#1858a8">DB FleetOps</link>  ·  <link href="https://github.com/hsjni0110/ReservationSystem" color="#1858a8">예약 시스템</link>',8.2,space=3)
-section('학력과 활동')
-text('충남대학교 컴퓨터융합학부 학사 · 2020.03 - 2026.02<br/>현대자동차 HINT 제조지능화 과정 · 2026.07 - 현재<br/>멋쟁이사자처럼 대학생 · 2024년 교육생 / 2025년 백엔드 운영진<br/>UC San Diego Qualcomm Institute AI 연구 교육 프로그램 · 2025.01 - 2025.02',9,space=4)
-text('SQLD · TOEIC Speaking IH',8.6,GRAY,space=0)
-footer(2);c.save();print(OUT)
+detail('일정 입력 중심에서 캐릭터와의 동행으로 기획 변경',
+       '혼자서는 할 일을 알아도 시작하고 이어가기 어려웠던 경험에서 출발했습니다. 기존의 일정 입력·AI 대화 중심 기획을, 앱을 켜고 자기 일을 하면 캐릭터도 자기 일을 하는 방식으로 바꿨습니다. 입력·조작 부담을 줄이고 관계가 쌓이는 재미로 재방문 이유를 만드는 것이 목표입니다.')
+detail('기존 버전의 피드백 수집과 새 버전 개발',
+       '기존 버전은 테스터를 모집해 오픈 톡방에서 피드백을 받았습니다. 현재 새 방향으로 개발 중이며 변경 버전은 아직 사용자 검증 전입니다.')
+
+newpage('교육·활동 · 학습 내용과 수행 범위')
+section('교육·학내외 활동')
+title('UC San Diego Qualcomm Institute | AI 연구 교육', '2025.01 - 2025.02 · 미국 · AI Project 과정 수료')
+detail('비라벨 금융 데이터를 활용한 BERT 준지도학습 연구',
+       '기존 FinBERT의 최신 금융 데이터 반영 한계를 다루기 위해 Self-training·Pseudo-labeling을 적용했습니다. 비라벨 금융 텍스트에 의사 라벨을 부여해 학습에 활용하고, 신뢰도 임계값과 반복 학습 횟수를 조정했습니다. 5-Fold 교차검증과 문장 임베딩 기반 유사성 분석으로 결과를 살펴보고 연구 방법·실험 결과를 학술 논문으로 정리했습니다.')
+title('현대자동차 K-뉴딜 아카데미 HINT | 제조지능화', '현대엔지비 · 2026.07 - 현재 · 2026.10.18 기준 교육 참여 중')
+detail('제조 공정·설비·데이터의 이해와 개인 프로젝트 적용',
+       '제조 공정과 설비, 제조 데이터가 현장에서 생성되고 활용되는 방식을 학습하고 있습니다. 교육에서 생긴 궁금증을 개인 프로젝트 ForgeSync로 확장해 공개 CNC 기록의 상태 분류·재생·조회 기능을 구현했습니다.')
+title('멋쟁이사자처럼 대학생 | 백엔드 운영진', '2025.03 - 2025.12')
+detail('교육생의 이해도에 따른 코드 리뷰와 오류 분석 자료 작성',
+       '교육생의 GitHub PR을 검토하며 기본 개념이 부족한 경우에는 학습 키워드를 안내하고, 이해도가 높은 경우에는 로그·코드에서 원인을 찾을 수 있는 질문을 남겼습니다. 과제를 빠르게 해결한 교육생에게는 예외 상황과 추가 요구사항을 제시했습니다. 반복되는 질문은 재현 방법·확인 항목·관련 개념을 담은 Wiki로 정리했습니다.')
+title('멋쟁이사자처럼 대학생 | 백엔드 교육생', '2024.03 - 2024.12')
+detail('백엔드 개발 학습과 팀 프로젝트·창업 관심자 교류',
+       '백엔드 교육과 과제, 팀 프로젝트에 참여했습니다. 다른 팀과 창업에 관심 있는 사람들을 만나며 기술적 완성도와 실제 수요가 다를 수 있다는 점을 느꼈습니다. 이 경험은 구현 방법보다 누구의 어떤 문제를 해결하는지 먼저 살피는 계기 중 하나였습니다.')
+section('추가 학습 프로젝트')
+detail('DB FleetOps | 백업 복원·테이블 확인',
+       '백업 파일의 생성 여부를 넘어 임시 DB 복원과 필수 테이블 조회를 확인하는 기능을 구현했습니다. 검증 성공과 정리 실패를 별도로 기록했습니다. 전체 데이터 일치 검증과 복원 실패 경로의 정리 보장은 남은 과제입니다.')
+link('DB FleetOps 코드·설계·테스트', 'https://github.com/hsjni0110/db-fleet-ops')
+detail('예약 시스템 | 좌석 선점·미결제 예약 해제',
+       '결제 중인 좌석을 선점하고 5분 미결제 예약을 해제하는 기능을 구현했습니다. 5분은 학습용 정책입니다. 결제 이벤트 지연과 선점 만료가 겹치는 상황은 당시 고려하지 못했으며, 우선순위 규칙과 충돌 재현 검증이 필요합니다.')
+link('예약 시스템 코드·제약조건', 'https://github.com/hsjni0110/ReservationSystem')
+assert page_number == TOTAL_PAGES
+footer()
+c.save()
+print(OUT)
