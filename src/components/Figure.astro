@@ -1,0 +1,10 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { src: ImageMetadata; alt: string; caption: string; sourceUrl?: string; eager?: boolean }
+const { src, alt, caption, sourceUrl, eager = false } = Astro.props;
+---
+<figure class="project-figure">
+  <Image src={src} alt={alt} widths={[640, 1120, 1600]} sizes="(max-width: 760px) calc(100vw - 40px), min(1120px, calc(100vw - 96px))" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  <figcaption>{caption}{sourceUrl && <a class="figure-source" href={sourceUrl}>원본 근거 <span aria-hidden="true">↗</span></a>}</figcaption>
+</figure>
