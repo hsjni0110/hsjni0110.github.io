@@ -1,0 +1,13 @@
+---
+import { withBase } from '../lib/paths';
+---
+<a class="skip-link" href="#main">본문 바로가기</a>
+<header class="site-header">
+  <nav class="nav-shell" aria-label="주요 메뉴">
+    <a class="wordmark" href={withBase('/')} aria-label="한석진 홈">한석진<span>개발자</span></a>
+    <div class="nav-links">
+      <a href={withBase('/#cases')}>사례</a><a href={withBase('/#experience')}>경험</a><a href={withBase('/#about')}>소개</a><a href={withBase('/#contact')}>연락</a>
+    </div>
+    <a class="nav-resume" href={withBase('/resume.pdf')}>이력서 PDF <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
