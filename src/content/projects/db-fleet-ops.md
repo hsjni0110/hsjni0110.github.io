@@ -8,7 +8,7 @@ role: "DBMS 운영 관리 도구 설계·개발"
 status: "completed"
 order: 4
 featured: false
-summary: {"problem": "파일 생성만으로는 확인할 수 없는 백업의 복원 가능성", "decision": "임시 DB 복원·필수 테이블 조회 구현, 정리 실패의 별도 기록", "outcome": "복원·테이블 확인 기능 구현. 전체 데이터 일치 검증은 후속 과제"}
+summary: {"problem": "백업 파일이 만들어졌다는 사실만으로 실제 복구 가능성을 확인할 수는 없다고 봤습니다.", "decision": "임시 DB 복원과 필수 테이블 조회를 구현하고, 복원 검증 이후의 정리 실패는 별도로 기록했습니다.", "outcome": "복원과 테이블 조회를 확인하는 기능을 구현했습니다. 전체 데이터 일치 검증과 복원 실패 경로의 정리 보장은 남은 과제입니다."}
 sources: [{"label": "코드·설계·테스트", "url": "https://github.com/hsjni0110/db-fleet-ops"}]
 ---
 

@@ -8,7 +8,7 @@ role: "스크립트 생성 · 등장인물 동기화 · 음성 생성 · 편집 
 status: "completed"
 order: 1
 featured: true
-summary: {"problem": "대사가 잘못된 발화자에게 연결되는 오류", "decision": "작가의 확인·수정 기능과 발화자별 색 구분 도입", "outcome": "팀 내부에서 잘못 연결된 대사의 탐색·수정이 편해졌다는 정성적 피드백"}
+summary: {"problem": "팀원들과 생성된 음성을 듣는 과정에서 대사가 잘못된 발화자에게 연결되는 오류를 확인했습니다.", "decision": "작가의 검토·수정 기능을 도입하고, 잘못 연결된 대사를 찾기 쉽도록 발화자별 색 구분과 편집 화면·API를 구현했습니다.", "outcome": "팀원들은 색 구분 이후 잘못 연결된 대사를 찾고 수정하기 편해졌다고 평가했습니다."}
 sources: [{"label": "Backend 저장소", "url": "https://github.com/SpeakText/backend"}, {"label": "등장인물 동기화 PR", "url": "https://github.com/SpeakText/backend/pull/31"}, {"label": "스크립트 일괄 수정 PR", "url": "https://github.com/SpeakText/backend/pull/37"}]
 ---
 

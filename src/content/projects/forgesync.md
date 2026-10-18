@@ -8,8 +8,8 @@ role: "기획 · 데이터 설계 · 백엔드 · 프런트엔드 · 검증"
 status: "completed"
 order: 2
 featured: true
-hero: {"src": "../../assets/projects/forgesync/overview.webp", "alt": "작업·멈춤·기록 없음을 구분한 ForgeSync 대시보드", "caption": "기록이 없는 시간과 실제 정지를 분리한 하루 상태 요약"}
-summary: {"problem": "기록 누락을 정지로, 센서 편차를 고장으로 해석할 위험", "decision": "기록 누락과 정지의 분리, 가공 시간 중심의 판정 기준 적용", "outcome": "공개 설비 기록의 재생·분석 기능 구현. 현장 사용성과 불량 정확도는 미검증"}
+hero: {"src": "../../assets/projects/forgesync/overview.webp", "alt": "작업·멈춤·기록 없음을 구분한 ForgeSync 대시보드", "caption": "기록이 없는 시간을 정지에 포함하지 않고, 작업·멈춤·기록 없음을 나눠 보여줍니다."}
+summary: {"problem": "설비 기록이 없는 시간을 정지로 계산하거나 센서 편차를 고장으로 해석하면, 실제로 확인한 사실과 다른 결론을 낼 수 있다고 봤습니다.", "decision": "기록 누락과 정지를 구분하고 가공 시간 중심으로 판정 기준을 바꿨습니다. 조사할 구간을 고른 뒤 당시 상태와 원본 기록을 확인하는 화면도 구현했습니다.", "outcome": "공개 CNC 설비 1대의 하루 기록으로 재생·분석 기능을 구현했습니다. 실제 불량 판별 정확도와 현장 사용성은 아직 검증하지 않았습니다."}
 sources: [{"label": "코드와 설계 기록", "url": "https://github.com/hsjni0110/forge-sync"}, {"label": "분석 판정 정책", "url": "https://github.com/hsjni0110/forge-sync/blob/main/apps/factory-api/src/main/java/com/forgesync/factoryapi/processanalytics/domain/AnomalyAssessmentPolicy.java"}]
 ---
 

@@ -8,7 +8,7 @@ role: "예약·결제 흐름과 동시성·트랜잭션 학습"
 status: "completed"
 order: 5
 featured: false
-summary: {"problem": "같은 좌석의 중복 예약과 미결제 사용자의 장기 점유", "decision": "결제 전 좌석 선점, 5분 미결제 예약 만료 적용", "outcome": "좌석 선점·만료 구현. 결제 이벤트 지연과 만료의 충돌은 미해결"}
+summary: {"problem": "결제 중인 좌석의 중복 예약을 막으면서, 미결제 사용자가 이탈한 좌석은 다시 예약할 수 있어야 한다고 봤습니다.", "decision": "결제 전 좌석 선점과 5분 미결제 예약 해제를 구현했습니다.", "outcome": "좌석 선점과 만료를 구현했지만, 결제 이벤트 지연과 만료가 겹치는 충돌은 해결하지 못했습니다."}
 sources: [{"label": "코드와 제약조건", "url": "https://github.com/hsjni0110/ReservationSystem"}]
 ---
 
