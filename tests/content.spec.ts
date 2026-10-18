@@ -4,15 +4,15 @@ test('shared-life has no product image or recruitment link', async ({ page }) =>
   await page.goto(`${base}projects/shared-life/`);
   await expect(page.locator('article img')).toHaveCount(0);
   await expect(page.locator('article a[href*="open.kakao"]')).toHaveCount(0);
-  await expect(page.locator('article')).toContainText('변경 버전은 아직 사용자 검증 전.');
+  await expect(page.locator('article')).toContainText('변경 버전은 아직 사용자 검증 전입니다.');
 });
 test('case outcomes retain their scope', async ({ page }) => {
   await page.goto(`${base}projects/speaktext/`);
   await expect(page.locator('article')).toContainText('팀 내부 사용의 정성적 피드백');
   await page.goto(`${base}projects/forgesync/`);
-  await expect(page.locator('article')).toContainText('실제 정상·불량 정답이 없어 탐지 정확도 개선은 미검증');
+  await expect(page.locator('article')).toContainText('실제 정상·불량 정답이 없어 탐지 정확도의 개선 여부는 검증하지 못했습니다.');
   await page.goto(`${base}projects/reservation-system/`);
-  await expect(page.locator('article')).toContainText('결제 이벤트 지연과 선점 만료가 겹치는 상황은 당시 미고려');
+  await expect(page.locator('article')).toContainText('결제 이벤트 지연과 선점 만료가 겹치는 상황은 당시 고려하지 못했습니다.');
 });
 test('forgesync provides the actual before and after screen evidence', async ({ page }) => {
   await page.goto(`${base}projects/forgesync/`);
