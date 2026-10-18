@@ -59,7 +59,8 @@ test('mobile navigation has full touch targets', async ({ page }) => {
     const box=await link.boundingBox();expect(box?.width).toBeGreaterThanOrEqual(44);expect(box?.height).toBeGreaterThanOrEqual(44);
   }
 });
-test('case summary uses a description list', async ({ page }) => {
+test('case opens directly into the article without repeated summary', async ({ page }) => {
   await page.goto(`${base}projects/speaktext/`);
-  await expect(page.locator('dl.case-summary dt')).toHaveCount(3);
+  await expect(page.locator('.case-summary, .case-meta, .case-description, .case-toc')).toHaveCount(0);
+  await expect(page.locator('.case-body .prose > h2').first()).toHaveText('맥락');
 });

@@ -11,14 +11,13 @@ for (const id of ['speaktext', 'forgesync', 'shared-life', 'db-fleet-ops', 'rese
     expect(response?.status()).toBe(200);
     await expect(page.getByRole('heading', { name: '한계와 다음 단계', exact: true })).toBeVisible();
     await page.reload();
-    await page.getByRole('navigation', { name: '사례 목차' }).getByRole('link', { name: '확인', exact: true }).click();
     await expect(page.getByRole('heading', { name: '확인', exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: '전체 사례로 돌아가기' })).toHaveAttribute('href', `${base}#cases`);
   });
 }
 test('homepage introduces the developer and orders the main cases', async ({ page }) => {
   await page.goto(base);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('문제를 구체적으로 정의하고, 구현과 검증까지 맡습니다.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('문제를 정의하고, 구현과 검증까지 맡는 개발자');
   expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync', 'shared-life']);
 });
 test('approved PDF, fonts and project images load from the configured base', async ({ page, request }) => {

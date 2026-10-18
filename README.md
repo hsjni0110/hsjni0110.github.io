@@ -43,7 +43,7 @@ npm run verify
 
 ## 이력서 갱신
 
-승인한 새 PDF를 `output/pdf/han-seokjin-resume.pdf`에 저장하고 같은 파일을 `public/resume.pdf`로 복사합니다. `npm run verify`가 두 파일의 SHA-256 일치를 확인합니다. 공개 전 주소·전화번호·연봉·계좌 등 제외 항목과 PDF 화면을 다시 확인합니다.
+공개용 이력서의 생성 원본은 `scripts/create-resume.py`입니다. ReportLab을 사용할 수 있는 Python으로 실행하면 `output/pdf/han-seokjin-resume.pdf`를 갱신합니다. 렌더링한 두 페이지를 확인한 뒤 같은 파일을 `public/resume.pdf`로 복사합니다. `npm run verify`가 두 파일의 SHA-256 일치를 확인합니다. 공개 전 주소·전화번호·연봉·계좌 등 제외 항목과 PDF 화면을 다시 확인합니다.
 
 ## 배포
 
