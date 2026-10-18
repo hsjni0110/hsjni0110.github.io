@@ -14,3 +14,5 @@
 | Pretendard 1.3.9 | orioncactus/pretendard 공식 GitHub tag | 자체 제공, OFL.txt 포함 |
 
 SpeakText 편집 UI 캡처 미확보. 첫 버전은 제품 이미지 없이 완결되게 구성한다. 가짜 다중 선택 화면을 만들지 않는다. 현재 앱 화면과 모집 링크는 제외한다. ForgeSync 이미지는 기존 포트폴리오에 수록된 시점의 실제 화면이다.
+
+원본 크기 보기: `public/images/forgesync-*.webp`는 위 승인 화면과 동일한 파일로, 상세 본문의 화면 크게 보기 링크에 사용합니다.

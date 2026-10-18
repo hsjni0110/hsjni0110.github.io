@@ -14,3 +14,8 @@ test('case outcomes retain their scope', async ({ page }) => {
   await page.goto(`${base}projects/reservation-system/`);
   await expect(page.locator('article')).toContainText('당시 고려하지 못했습니다');
 });
+test('forgesync provides the actual before and after screen evidence', async ({ page }) => {
+  await page.goto(`${base}projects/forgesync/`);
+  await expect(page.getByRole('img',{name:'개선 전: 정지와 기록 누락을 구분하기 어려웠던 대시보드'})).toHaveCount(1);
+  await expect(page.getByRole('img',{name:'작업·멈춤·기록 없음을 나눠 보여주는 대시보드',exact:true})).toHaveCount(1);
+});

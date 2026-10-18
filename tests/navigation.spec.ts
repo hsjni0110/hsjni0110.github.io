@@ -36,3 +36,10 @@ test('approved PDF, fonts and project images load from the configured base', asy
     }
   }
 });
+test('project figure offers its full size approved image', async ({ page, request }) => {
+  await page.goto(`${base}projects/forgesync/`);
+  const link=page.getByRole('link',{name:'화면 크게 보기'}).first();
+  await expect(link).toBeVisible();
+  const url=await link.getAttribute('href');expect(url).toBeTruthy();
+  const response=await request.get(url!);expect(response.ok()).toBe(true);expect(response.headers()['content-type']).toContain('image/');
+});

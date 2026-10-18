@@ -37,7 +37,7 @@ test('failed images retain context and source links', async ({ page }) => {
   await page.route('**/*.{webp,png,avif}', route=>route.abort());
   await page.goto(`${base}projects/forgesync/`);
   await expect(page.locator('figcaption')).toContainText('기록이 없는 시간');
-  await expect(page.locator('figcaption a')).toHaveAttribute('href','https://github.com/hsjni0110/forge-sync');
+  await expect(page.locator('figcaption').getByRole('link',{name:'원본 근거'})).toHaveAttribute('href','https://github.com/hsjni0110/forge-sync');
   await expect(page.getByRole('heading',{name:'한계와 다음 단계',exact:true})).toBeVisible();
 });
 test('404 offers a working way home', async ({ page }) => {
@@ -52,4 +52,14 @@ test('two hundred percent zoom keeps text and contact usable', async ({ page }) 
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth)).toBe(true);
   await page.locator('#contact').scrollIntoViewIfNeeded();
   await expect(page.locator('#contact').getByRole('link',{name:'이메일로 연락하기',exact:true})).toBeVisible();
+});
+test('mobile navigation has full touch targets', async ({ page }) => {
+  await page.setViewportSize({width:360,height:800});await page.goto(base);
+  for(const link of await page.locator('header nav a:visible').all()) {
+    const box=await link.boundingBox();expect(box?.width).toBeGreaterThanOrEqual(44);expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+});
+test('case summary uses a description list', async ({ page }) => {
+  await page.goto(`${base}projects/speaktext/`);
+  await expect(page.locator('dl.case-summary dt')).toHaveCount(3);
 });
