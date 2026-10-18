@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/paths';
+import Figure from './Figure.astro';
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const p = project.data;
+---
+<section class:list={['section', 'project-story', {soft: project.id === 'forgesync'}]} data-project={project.id}>
+  <div class="shell">
+    <div class="project-head"><strong>{p.title}</strong><span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'}{p.status === 'in-development' ? ' · 개발 중' : ''}</span></div>
+    <h2>{p.lead}</h2><p class="story-description">{p.summary.problem} {p.summary.decision}</p>
+    <a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>판단의 과정 읽기 <span aria-hidden="true">→</span></a>
+    {project.id === 'speaktext' && <>
+      <div class="editorial-panel">
+        <blockquote>생성된 결과를,<br />작가가 직접<br />바로잡을 수 있도록.</blockquote>
+        <ol><li><span>↳</span><div><strong>인물의 일관성</strong><p>원문을 나눠도 같은 인물과 목소리로 이어지기</p></div></li><li><span>↳</span><div><strong>작가의 검토와 수정</strong><p>자동 생성의 한계를 팀과 함께 확인하고 편집 흐름 마련</p></div></li><li><span>↳</span><div><strong>수정의 편의</strong><p>발화자 색 구분과 대사 수정 기능으로 검토 부담 줄이기</p></div></li></ol>
+      </div>
+      <p class="panel-caption">프로젝트의 판단 흐름을 정리한 도식입니다. 제품 화면을 재현한 이미지는 아닙니다.</p>
+      <div class="project-points"><div><strong>제가 맡은 일</strong><p>스크립트·인물 동기화·음성 생성 흐름과 편집 개선안, 화면·API 구현</p></div><div><strong>팀과 확인한 변화</strong><p>{p.summary.outcome} 정량적인 효과는 측정하지 않았습니다.</p></div></div>
+    </>}
+    {project.id === 'forgesync' && <>
+      {p.hero && <Figure {...p.hero} sourceUrl={p.sources[0]?.url} />}
+      <div class="project-points"><div><strong>무엇을 알 수 있는가</strong><p>가공 시간의 변화를 중심으로 보고, 센서 편차는 참고 정보로 제공합니다.</p></div><div><strong>무엇을 아직 모르는가</strong><p>실제 불량 정답과 현장 검증은 없습니다. 관찰과 추론의 범위를 나눴습니다.</p></div></div>
+    </>}
+    {project.id === 'shared-life' && <>
+      <div class="comparison"><div><p class="comparison-label">이전 기획</p><h3>입력하고 대화하며,<br />일정을 관리받기.</h3><p>도움을 받기 위해 먼저 해야 할 일이 많았습니다.</p></div><div><p class="comparison-label">현재의 방향</p><h3>앱을 켜고,<br />각자의 일을 함께하기.</h3><p>캐릭터도 자기 일상을 보내며, 함께한 시간이 관계로 이어지는 경험을 만듭니다.</p></div></div>
+      <p class="development-note">{p.summary.outcome}</p>
+    </>}
+  </div>
+</section>

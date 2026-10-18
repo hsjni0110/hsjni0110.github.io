@@ -1,0 +1,23 @@
+import { test, expect } from '@playwright/test';
+const base = process.env.TEST_BASE_PATH || '/';
+test('homepage has email and resume links', async ({ page }) => {
+  await page.goto(base);
+  await expect(page.getByRole('link', { name: '이메일로 연락하기', exact: true }).first()).toHaveAttribute('href', 'mailto:seokjin.han010@gmail.com');
+  await expect(page.getByRole('link', { name: '이력서 PDF', exact: true }).first()).toHaveAttribute('href', `${base}resume.pdf`);
+});
+for (const id of ['speaktext', 'forgesync', 'shared-life', 'db-fleet-ops', 'reservation-system']) {
+  test(`${id} works by direct navigation and refresh`, async ({ page }) => {
+    const response = await page.goto(`${base}projects/${id}/`);
+    expect(response?.status()).toBe(200);
+    await expect(page.getByRole('heading', { name: '한계와 다음 단계', exact: true })).toBeVisible();
+    await page.reload();
+    await page.getByRole('navigation', { name: '사례 목차' }).getByRole('link', { name: '확인', exact: true }).click();
+    await expect(page.getByRole('heading', { name: '확인', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: '전체 사례로 돌아가기' })).toHaveAttribute('href', `${base}#cases`);
+  });
+}
+test('homepage introduces the developer and orders the main cases', async ({ page }) => {
+  await page.goto(base);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('누구의 어떤 문제인지부터 생각합니다.');
+  expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync', 'shared-life']);
+});
