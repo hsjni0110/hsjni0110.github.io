@@ -22,7 +22,7 @@ test('keyboard reaches content and contact', async ({ page }) => {
 for (const width of [360,390,768,1440]) {
   test(`korean content does not overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ['', 'projects/shared-life/', 'projects/forgesync/']) {
+    for (const path of ['', 'projects/speaktext/', 'projects/forgesync/']) {
       await page.goto(`${base}${path}`);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     }
@@ -43,7 +43,7 @@ test('failed images retain context and source links', async ({ page }) => {
 test('404 offers a working way home', async ({ page }) => {
   await page.goto(`${base}404.html`);
   await page.getByRole('link',{name:'첫 화면으로 돌아가기'}).click();
-  await expect(page.locator('[data-project]')).toHaveCount(3);
+  await expect(page.locator('[data-project]')).toHaveCount(2);
 });
 test('two hundred percent zoom keeps text and contact usable', async ({ page }) => {
   await page.setViewportSize({width:1440,height:1000});

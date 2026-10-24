@@ -11,7 +11,7 @@ async function files(dir) {
 const all = await files(root);
 const pages = all.filter(p=>p.endsWith('.html'));
 const exists = new Set(all);
-for (const path of ['index.html','404.html','resume.pdf', ...['speaktext','forgesync','shared-life','db-fleet-ops','reservation-system'].map(x=>`projects/${x}/index.html`)]) {
+for (const path of ['index.html','404.html','resume.pdf', ...['speaktext','forgesync','db-fleet-ops','reservation-system'].map(x=>`projects/${x}/index.html`)]) {
   assert(exists.has(resolve(root,path)),`Missing output: ${path}`);
 }
 const allowed = new Set(['.html','.css','.js','.svg','.webp','.png','.jpg','.avif','.woff2','.txt','.xml','.pdf']);
@@ -68,7 +68,6 @@ if(process.env.SITE_URL) {
   assert(!exists.has(join(root,'sitemap-index.xml')),'Local preview should not emit sitemap');
   for(const html of htmls.values())assert(!html.includes('rel="canonical"'),'Local preview should not invent canonical');
 }
-const app=htmls.get(join(root,'projects/shared-life/index.html'));
-assert(!/<img\b/.test(app),'Private app must not show product images');
-assert(!/open\.kakao|테스터 모집하기/.test(app),'Recruitment link should not be public');
+assert(!exists.has(join(root,'projects/shared-life/index.html')),'Withdrawn project emitted');
+for(const html of htmls.values()) assert(!/shared-life|동시생활|끝났다|제 작업은 이런 질문/.test(html),'Withdrawn copy emitted');
 console.log(`Output checked: ${pages.length} pages, ${references} local references, approved PDF hash, asset types and public-content boundaries.`);

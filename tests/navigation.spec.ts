@@ -5,7 +5,7 @@ test('homepage has email and resume links', async ({ page }) => {
   await expect(page.getByRole('link', { name: '이메일로 연락하기', exact: true }).first()).toHaveAttribute('href', 'mailto:seokjin.han010@gmail.com');
   await expect(page.getByRole('link', { name: '이력서 PDF', exact: true }).first()).toHaveAttribute('href', `${base}resume.pdf`);
 });
-for (const id of ['speaktext', 'forgesync', 'shared-life', 'db-fleet-ops', 'reservation-system']) {
+for (const id of ['speaktext', 'forgesync', 'db-fleet-ops', 'reservation-system']) {
   test(`${id} works by direct navigation and refresh`, async ({ page }) => {
     const response = await page.goto(`${base}projects/${id}/`);
     expect(response?.status()).toBe(200);
@@ -17,8 +17,8 @@ for (const id of ['speaktext', 'forgesync', 'shared-life', 'db-fleet-ops', 'rese
 }
 test('homepage introduces the developer and orders the main cases', async ({ page }) => {
   await page.goto(base);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('“끝났다”는 말의 조건을 묻습니다.');
-  expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync', 'shared-life']);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('한석진');
+  expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync']);
 });
 test('approved PDF, fonts and project images load from the configured base', async ({ page, request }) => {
   const pdf = await request.get(`${base}resume.pdf`);
