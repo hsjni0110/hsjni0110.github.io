@@ -1,0 +1,5 @@
+---
+interface Props { items: readonly string[] }
+const { items } = Astro.props;
+---
+<ul class="tech-tags" aria-label="사용 기술">{items.map(item=><li>{item}</li>)}</ul>
