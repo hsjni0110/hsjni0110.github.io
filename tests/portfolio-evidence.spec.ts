@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 const base = process.env.TEST_BASE_PATH || '/';
 test('work index omits organization names and writing links connect to actual articles', async ({ page }) => {
   await page.goto(base);
-  await expect(page.locator('.instrument-selector')).not.toContainText(/모플|SpeakText|ForgeSync/);
+  await expect(page.locator('.portrait-work')).not.toContainText(/모플|SpeakText|ForgeSync/);
   await expect(page.locator('#writing article')).toHaveCount(2);
   await expect(page.locator('#writing a[href*="Context-Engineering"]')).toHaveCount(1);
   await expect(page.locator('.experience-row').first().locator('.tech-tags li')).toHaveText(['PostgreSQL','Citus','dbt','SQL']);

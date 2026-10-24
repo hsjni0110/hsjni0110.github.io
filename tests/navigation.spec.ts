@@ -17,7 +17,7 @@ for (const id of ['speaktext', 'forgesync', 'db-fleet-ops', 'reservation-system'
 }
 test('homepage introduces the developer and orders the main cases', async ({ page }) => {
   await page.goto(base);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('한석진');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('한석진입니다.');
   expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync']);
 });
 test('approved PDF, fonts and project images load from the configured base', async ({ page, request }) => {
