@@ -24,7 +24,7 @@ const related = (await getCollection('projects')).filter(x => x.id !== project.i
     </header>
     <div class="case-body shell">
       <div class="prose"><slot />
-        {p.sources.length>0 && <section class="case-sources"><h2 id="sources">코드와 근거</h2><ul>{p.sources.map(source=><li><a href={source.url}>{source.label} <span aria-hidden="true">↗</span></a></li>)}</ul></section>}
+        {p.sources.length>0 && <section class="case-sources"><h2 id="sources">코드·문서</h2><ul>{p.sources.map(source=><li><a href={source.url}>{source.label} <span aria-hidden="true">↗</span></a></li>)}</ul></section>}
       </div>
     </div>
   </article>

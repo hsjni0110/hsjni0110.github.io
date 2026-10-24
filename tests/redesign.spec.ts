@@ -8,7 +8,7 @@ test('work evidence precedes projects and work links navigate to their cases', a
   await expect(page).toHaveURL(/#speaktext$/);
   await expect(page.locator('#speaktext .service-intro')).toBeVisible();
   await page.locator('#speaktext .story-link').click();
-  await expect(page.locator('.case-sources a[href="https://github.com/SpeakText/backend/pull/31"]')).toHaveCount(1);
+  await expect(page.locator('.case-sources a[href="https://github.com/SpeakText/backend"]')).toHaveCount(1);
 });
 
 test('actual before and after evidence is keyboard operable without javascript', async ({ browser }) => {
@@ -52,5 +52,5 @@ test('mobile introduces each case before its explanatory figure', async ({ page 
     expect(copy!.y+copy!.height).toBeLessThanOrEqual(figure!.y);
   }
   await expect(page.locator('.speaker-example')).toHaveCount(0);
-  await expect(page.locator('#speaktext a[href="https://github.com/SpeakText/backend/pull/37"]')).toHaveCount(1);
+  await expect(page.locator('a[href*="/pull/"]')).toHaveCount(0);
 });

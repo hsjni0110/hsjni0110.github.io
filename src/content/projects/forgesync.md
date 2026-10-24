@@ -10,14 +10,14 @@ order: 2
 featured: true
 hero: {"src": "../../assets/projects/forgesync/overview.webp", "alt": "작업·멈춤·기록 없음을 구분한 ForgeSync 대시보드", "caption": "기록이 없는 시간을 정지에 포함하지 않고, 작업·멈춤·기록 없음을 나눠 보여줍니다."}
 summary: {"problem": "설비 기록이 없는 시간을 정지로 계산하거나 센서 편차를 고장으로 해석하면, 실제로 확인한 사실과 다른 결론을 낼 수 있다고 봤습니다.", "decision": "기록 누락과 정지를 구분하고 가공 시간 중심으로 판정 기준을 바꿨습니다. 조사할 구간을 고른 뒤 당시 상태와 원본 기록을 확인하는 화면도 구현했습니다.", "outcome": "공개 CNC 설비 1대의 하루 기록으로 재생·분석 기능을 구현했습니다. 실제 불량 판별 정확도와 현장 사용성은 아직 검증하지 않았습니다."}
-sources: [{"label": "코드와 설계 기록", "url": "https://github.com/hsjni0110/forge-sync"}, {"label": "분석 판정 정책", "url": "https://github.com/hsjni0110/forge-sync/blob/main/apps/factory-api/src/main/java/com/forgesync/factoryapi/processanalytics/domain/AnomalyAssessmentPolicy.java"}]
+sources: [{"label": "저장소", "url": "https://github.com/hsjni0110/forge-sync"}, {"label": "분석 판정 정책", "url": "https://github.com/hsjni0110/forge-sync/blob/main/apps/factory-api/src/main/java/com/forgesync/factoryapi/processanalytics/domain/AnomalyAssessmentPolicy.java"}]
 ---
 
 ## 정지·가공 시간 변화 구간을 조사하는 조회 도구 구현
 
 ForgeSync는 설비가 멈추거나 가공 시간이 달라진 구간을 조사하는 엔지니어를 가정한 개인 프로젝트입니다. 저는 기록이 없는 시간과 실제 정지를 구분하고, 선택한 구간의 설비 상태와 원본 기록을 조회하는 화면을 구현했습니다.
 
-제조지능화 아카데미와 자료 조사를 통해 이런 조사 상황을 가정했습니다. 실제 현장 사용자의 요구를 들은 것은 아니며, NIST가 공개한 CNC 설비 1대의 하루 기록을 사용했습니다. 조사 대상 구간을 찾은 뒤 당시 기록을 살펴볼 수 있는 도구를 만드는 데 범위를 뒀습니다.
+제조지능화 아카데미와 자료 조사를 통해 이런 조사 상황을 가정했습니다. 실제 현장 사용자의 요구를 들은 것은 아니며, NIST가 공개한 CNC 설비 1대의 하루 기록을 사용했습니다.
 
 ## 기록 누락을 정지와 분리하고 근거 없는 판정 제외
 
@@ -45,7 +45,7 @@ ForgeSync는 설비가 멈추거나 가공 시간이 달라진 구간을 조사�
 
 ![작업·멈춤·기록 없음을 나눠 보여주는 대시보드](../../assets/projects/forgesync/overview.webp)
 
-작업·멈춤·기록 없음을 나눠 하루의 상태부터 확인하는 구성으로 바꿨습니다. 기존 포트폴리오에 수록한 실제 화면이며, 수치는 해당 공개 기록과 당시 계산 조건에 따른 결과입니다. [화면 크게 보기](../../images/forgesync-overview.webp)
+작업·멈춤·기록 없음을 나눠 하루의 상태부터 확인하는 구성으로 바꿨습니다. 수치는 해당 공개 기록과 당시 계산 조건에 따른 결과입니다. [화면 크게 보기](../../images/forgesync-overview.webp)
 
 ### 관심 구간에서 당시 기록으로
 
@@ -61,13 +61,13 @@ ForgeSync는 설비가 멈추거나 가공 시간이 달라진 구간을 조사�
 
 에이전트가 코드를 작성하기 전에 어떤 제품을 만드는지, 어떤 데이터 의미를 보존해야 하는지 알 수 있도록 문서를 연결했습니다. [AGENTS.md](https://github.com/hsjni0110/forge-sync/blob/main/AGENTS.md)에는 PRD, 설계 결정 기록인 ADR, 도메인 용어와 데이터 계약, 구현 단계, 테스트 전략의 우선순위를 명시했습니다. 관련 없는 문서를 모두 읽히기보다 변경 대상에 필요한 문서를 먼저 확인하도록 한 구성입니다.
 
-**기능을 작은 동작 단위로 나누고, 테스트와 구현을 함께 검토하도록 기준을 뒀습니다.** DTO·Repository·Controller를 각각 만드는 식의 분할 대신, 사용자가 수행할 동작과 인수 조건을 기준으로 작업 범위를 잡도록 했습니다. 원하는 동작의 실패를 확인한 뒤 최소 구현으로 통과시키고, 테스트가 유지되는 상태에서 책임과 의존성을 정리하는 RED–GREEN–REFACTOR 절차를 개발 규칙에 넣었습니다. 이 규칙이 있다는 사실만으로 모든 작업에서 준수됐다고 단정하지는 않습니다.
+**기능을 작은 동작 단위로 나누고, 테스트와 구현을 함께 검토하도록 기준을 뒀습니다.** DTO·Repository·Controller를 각각 만드는 식의 분할 대신, 사용자가 수행할 동작과 인수 조건을 기준으로 작업 범위를 잡도록 했습니다. 원하는 동작의 실패를 확인한 뒤 최소 구현으로 통과시키고, 테스트가 유지되는 상태에서 책임과 의존성을 정리하는 RED–GREEN–REFACTOR 절차를 개발 규칙에 넣었습니다.
 
-에이전트가 임의로 데이터 의미를 채우지 못하도록 원본 보존, 출처 추적, 시간 필드의 구분, 중복 수신 처리와 같은 불변식을 명시했습니다. 문서와 코드가 충돌하면 추측으로 맞추지 않고 ADR 후보와 검증 장부에 남기도록 했습니다. 저는 기록 누락을 정지로 확정하지 않는 기준과 가공 시간 중심의 분석 범위를 결정했습니다.
+에이전트가 임의로 데이터 의미를 채우지 못하도록 원본 보존, 출처 추적, 시간 필드의 구분, 중복 수신 처리와 같은 불변식을 명시했습니다. 문서와 코드가 충돌하면 추측으로 맞추지 않고 ADR 후보와 검증 장부에 남기도록 했습니다.
 
 **생성된 코드의 확인 수단도 저장소에 포함했습니다.** `scripts/verify`는 Python의 정적 검사·테스트·빌드, Java API 검사와 실행 파일 빌드, 웹의 타입·테스트·아키텍처 검사·빌드를 연결합니다. Docker가 필요한 MQTT 수신, PostgreSQL 트랜잭션·동시 Inbox 처리, 브라우저 사용자 흐름은 별도 검증 명령으로 분리했습니다. 에이전트의 완료 설명과 실제 실행 결과를 구분할 수 있도록 실행하지 않은 검사를 통과로 보고하지 않는 규칙도 뒀습니다.
 
-관련 근거: [개발 규칙](https://github.com/hsjni0110/forge-sync/blob/main/AGENTS.md) · [통합 검증 명령](https://github.com/hsjni0110/forge-sync/blob/main/scripts/verify) · [검증 장부](https://github.com/hsjni0110/forge-sync/blob/main/docs/verification-ledger.md) · [Context Engineering 활용 글](https://velog.io/@hsjni0110/나의-Context-Engineering-활용-방안)
+관련 문서: [개발 규칙](https://github.com/hsjni0110/forge-sync/blob/main/AGENTS.md) · [통합 검증 명령](https://github.com/hsjni0110/forge-sync/blob/main/scripts/verify) · [검증 장부](https://github.com/hsjni0110/forge-sync/blob/main/docs/verification-ledger.md) · [Context Engineering 활용 글](https://velog.io/@hsjni0110/나의-Context-Engineering-활용-방안)
 
 
 ## 판정 규칙과 기록 전달 검증, 불량 탐지 정확도는 미검증
@@ -80,4 +80,4 @@ ForgeSync는 설비가 멈추거나 가공 시간이 달라진 구간을 조사�
 
 현재 다룬 데이터는 공개 설비 1대의 하루 기록입니다. 여러 설비·기간에도 같은 기준을 적용할 수 있는지, 현장 엔지니어가 이 화면을 유용하게 쓰는지는 검증하지 않았습니다. 가공 시간의 변화 자체도 고장이나 불량을 뜻하지는 않습니다.
 
-다음으로는 분석 구간을 현장 작업 기록과 대조하고, 엔지니어가 의심 구간을 찾고 당시 기록을 확인하는 과정을 관찰할 필요가 있습니다. 화면에 정보를 제공하는 것에서 나아가 실제 조사에 도움이 되는지를 확인해야 합니다.
+다음으로는 분석 구간을 현장 작업 기록과 대조하고, 엔지니어가 의심 구간을 찾고 당시 기록을 확인하는 과정을 관찰할 필요가 있습니다.

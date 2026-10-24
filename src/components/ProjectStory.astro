@@ -17,7 +17,7 @@ const speak = project.id==='speaktext';
       <div class="story-copy" data-reveal>
         <h3>{speak?<>발화자 색 구분과<br />대사 일괄 수정</>:<>기록 누락·정지 분리와<br />원본 기록 조회</>}</h3>
         <p class="story-description">{speak?'생성된 음성에서 대사가 다른 인물에게 연결되는 오류를 확인했습니다. 발화자별 색 구분을 제안하고 대사 일괄 수정 화면과 API를 구현했습니다.':'기록이 없다는 이유로 정지를 확정하지 않도록 분류 기준을 바꿨습니다. 하루 요약에서 조사할 구간을 고르고 당시 원본 기록을 확인하는 화면을 구현했습니다.'}</p>
-        <div class="case-preview-links"><a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>사례 읽기 <span aria-hidden="true">↗</span></a>{speak && <a class="text-link" href={p.sources[2].url}>일괄 수정 API PR <span aria-hidden="true">↗</span></a>}</div>
+        <div class="case-preview-links"><a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>사례 읽기 <span aria-hidden="true">↗</span></a></div>
       </div>
       {!speak && <div class="comparison-evidence" data-reveal>
         <figure class="compare-current"><Image src={after} alt="개선 후: 작업·멈춤·기록 없음을 구분한 ForgeSync 화면" widths={[640,1120]} sizes="(max-width: 760px) calc(100vw - 40px), 56vw" /><figcaption><span class="evidence-label">개선 후</span>기록이 없는 시간과 실제 정지를 분리했습니다.</figcaption></figure>

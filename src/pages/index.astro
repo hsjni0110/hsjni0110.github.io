@@ -12,11 +12,11 @@ import Sketch from '../components/Sketch.astro';
 import TechTags from '../components/TechTags.astro';
 const projects = (await getCollection('projects')).sort((a,b)=>a.data.order-b.data.order);
 ---
-<SiteLayout title="한석진 | 백엔드 개발자" description="생성된 음성의 오류, 설비 기록의 빈틈, 적재 결과의 정합성. 실제로 쓰는 순간의 문제를 다루는 개발자 한석진의 포트폴리오.">
+<SiteLayout title="한석진 | 백엔드 개발자" description="백엔드 개발자 한석진. 배치 적재 개선, 소설 음성 편집, 설비 기록 분석 프로젝트.">
   <PortraitHero />
 
   <section class="section experience-section" id="experience" aria-labelledby="work-title">
-    <div class="shell"><div class="section-heading" data-reveal><span class="section-label">실무 경험</span><h2 id="work-title">느린 배치의 병목 분석,<br />적재 결과의 정합성 검증</h2><p>배치 지연의 원인 분석과 적재 검증,<br />서비스의 기능 구현과 반복 작업 개선.</p></div><Experience /></div>
+    <div class="shell"><div class="section-heading" data-reveal><span class="section-label">실무 경험</span><h2 id="work-title">서비스 개발·배치 개선</h2></div><Experience /></div>
   </section>
 
   <section class="selected-work" id="cases" aria-labelledby="cases-title">
@@ -24,17 +24,17 @@ const projects = (await getCollection('projects')).sort((a,b)=>a.data.order-b.da
     {projects.filter(x=>x.data.featured).map(project=><ProjectStory project={project} />)}
   </section>
 
-  <section class="section archive-section"><div class="shell"><div class="archive-heading"><span class="section-label">추가 학습 기록</span><h2>복원 가능성과 좌석 정합성</h2></div><div class="more-list">{projects.filter(x=>!x.data.featured).map(x=><a class="more-link" href={withBase(`/projects/${x.id}/`)} data-reveal><div><span class="archive-type">학습 프로젝트</span><h3>{x.data.title}</h3></div><p>{x.data.summary.decision}</p><span>사례 읽기 <span aria-hidden="true">↗</span></span></a>)}</div></div></section>
+  <section class="section archive-section"><div class="shell"><div class="archive-heading"><span class="section-label">학습 프로젝트</span><h2>복원 가능성과 좌석 정합성</h2></div><div class="more-list">{projects.filter(x=>!x.data.featured).map(x=><a class="more-link" href={withBase(`/projects/${x.id}/`)} data-reveal><div><span class="archive-type">학습 프로젝트</span><h3>{x.data.title}</h3></div><p>{x.data.summary.decision}</p><span>사례 읽기 <span aria-hidden="true">↗</span></span></a>)}</div></div></section>
 
   <section class="section writing-section" id="writing" aria-labelledby="writing-title"><div class="shell">
-    <div class="writing-heading"><div><span class="section-label">Writing</span><h2 id="writing-title">개발 중 마주친 문제의 기록</h2></div><a class="text-link" href={profile.velogUrl}>전체 글 보기 <span aria-hidden="true">↗</span></a></div>
+    <div class="writing-heading"><div><span class="section-label">Writing</span><h2 id="writing-title">기술 글</h2></div><a class="text-link" href={profile.velogUrl}>전체 글 보기 <span aria-hidden="true">↗</span></a></div>
     <div class="writing-list">{writing.map(post=><article data-reveal><Sketch kind="writing" class="writing-sketch" /><time>{post.date}</time><h3><a href={post.url}>{post.title} <span aria-hidden="true">↗</span></a></h3><p>{post.description}</p><TechTags items={post.tags} /></article>)}</div>
   </div></section>
 
   <section class="section about-section" id="about"><div class="shell about-grid">
-    <div class="about-copy" data-reveal><span class="section-label">함께 일하는 사람으로서</span><h2>서비스 개발 경험과<br />문제를 다시 보는 과정</h2><p>회사에서는 기능을 구현하고 데이터 처리 지연을 개선했습니다. 동아리와 제조지능화 교육을 거치며 ‘어떻게 만들지’ 앞에 ‘누구에게 왜 필요한지’를 놓게 됐습니다.</p></div>
+    <div class="about-copy" data-reveal><h2>학력·교육·활동</h2></div>
     <div class="credentials">{[...profile.education,...profile.activities].map(x=><details class="credential" data-reveal><summary><div><h3>{x.title}</h3><span>{x.detail}</span></div><span class="disclosure-mark" aria-hidden="true">+</span></summary><p>{x.description}</p>{'url' in x && <a class="credential-source text-link" href={x.url}>논문 보기 · {x.linkLabel} <span aria-hidden="true">↗</span></a>}</details>)}</div>
   </div></section>
 
-  <section class="contact-section" id="contact"><div class="shell contact-grid" data-reveal><div><span class="section-label">연락</span><h2>채용 · 협업</h2><p>이메일로 연락해 주세요.</p></div><div><ContactLinks /><a class="contact-address" href={`mailto:${profile.email}`}>{profile.email}</a></div></div></section>
+  <section class="contact-section" id="contact"><div class="shell contact-grid" data-reveal><div><span class="section-label">연락</span><h2>채용 · 협업</h2></div><div><ContactLinks /><a class="contact-address" href={`mailto:${profile.email}`}>{profile.email}</a></div></div></section>
 </SiteLayout>

@@ -69,5 +69,9 @@ if(process.env.SITE_URL) {
   for(const html of htmls.values())assert(!html.includes('rel="canonical"'),'Local preview should not invent canonical');
 }
 assert(!exists.has(join(root,'projects/shared-life/index.html')),'Withdrawn project emitted');
-for(const html of htmls.values()) assert(!/shared-life|동시생활|끝났다|제 작업은 이런 질문/.test(html),'Withdrawn copy emitted');
+for(const html of htmls.values()) {
+  assert(!/shared-life|동시생활|끝났다|제 작업은 이런 질문|함께 일하는 사람으로서/.test(html),'Withdrawn copy emitted');
+  assert(!/>\s*작업 기록\s*</.test(html),'Unnecessary label emitted');
+  assert(!/https:\/\/github\.com\/[^\"\s]+\/pull\//.test(html),'PR link emitted');
+}
 console.log(`Output checked: ${pages.length} pages, ${references} local references, approved PDF hash, asset types and public-content boundaries.`);
