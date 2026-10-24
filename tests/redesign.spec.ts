@@ -4,7 +4,8 @@ const base = process.env.TEST_BASE_PATH || '/';
 test('work evidence precedes projects and work links navigate to their cases', async ({ page }) => {
   await page.goto(base);
   expect(await page.locator('#experience').evaluate(el => !!(el.compareDocumentPosition(document.querySelector('#cases')!) & Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
-  await page.locator('.work-index a[href="#speaktext"]').click();
+  await page.locator('label[for="select-voice"]').click();
+  await page.locator('.instrument-selector a[href="#speaktext"]').click();
   await expect(page).toHaveURL(/#speaktext$/);
   await expect(page.locator('#speaktext .service-intro')).toBeVisible();
   await expect(page.locator('#speaktext .evidence-links a').first()).toHaveAttribute('href','https://github.com/SpeakText/backend/pull/31');

@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
+import InstrumentHero from '../components/InstrumentHero.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import ProjectStory from '../components/ProjectStory.astro';
 import ContactLinks from '../components/ContactLinks.astro';
@@ -9,27 +9,10 @@ import { profile } from '../data/profile';
 import { withBase } from '../lib/paths';
 import { writing } from '../data/writing';
 import TechTags from '../components/TechTags.astro';
-import portrait from '../assets/portrait.webp';
 const projects = (await getCollection('projects')).sort((a,b)=>a.data.order-b.data.order);
 ---
 <SiteLayout title="한석진 | 백엔드 개발자" description="생성된 음성의 오류, 설비 기록의 빈틈, 적재 결과의 정합성. 실제로 쓰는 순간의 문제를 다루는 개발자 한석진의 포트폴리오.">
-  <section class="hero shell" aria-labelledby="intro-title">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <div class="identity"><Image src={portrait} alt="개발자 한석진" width={144} loading="eager" /><p class="identity-role">백엔드 개발자</p></div>
-        <h1 id="intro-title">한석진</h1>
-        <p class="hero-description">서비스 백엔드 · 데이터 파이프라인</p>
-        <div class="hero-actions"><a class="button primary" href="#cases">대표 사례 보기 <span aria-hidden="true">↘</span></a><a class="text-link" href={`mailto:${profile.email}`}>이메일로 연락하기 <span aria-hidden="true">↗</span></a></div>
-      </div>
-      <div class="work-index" aria-label="주요 작업 바로가기">
-        <p class="index-label">주요 작업</p>
-        <a href="#experience"><span class="index-number">01</span><div><span class="index-context">실무 경험</span><p>배치 지연 분석과 분산 적재</p></div><span class="index-arrow" aria-hidden="true">↘</span></a>
-        <a href="#speaktext"><span class="index-number">02</span><div><span class="index-context">소설 음성 제작</span><p>발화자 오류를 고치는 편집 기능</p></div><span class="index-arrow" aria-hidden="true">↘</span></a>
-        <a href="#forgesync"><span class="index-number">03</span><div><span class="index-context">설비 기록 분석</span><p>기록 누락과 정지의 구분</p></div><span class="index-arrow" aria-hidden="true">↘</span></a>
-      </div>
-    </div>
-
-  </section>
+  <InstrumentHero />
 
   <section class="section experience-section" id="experience" aria-labelledby="work-title">
     <div class="shell"><div class="section-heading" data-reveal><span class="section-label">실무 경험</span><h2 id="work-title">느린 배치의 병목 분석,<br />적재 결과의 정합성 검증</h2><p>배치 지연의 원인 분석과 적재 검증,<br />서비스의 기능 구현과 반복 작업 개선.</p></div><Experience /></div>
