@@ -1,8 +1,0 @@
-<figure class="pipeline-sketch">
-  <div class="pipeline-route"><span class="route-label">기존</span><span class="sketch-node">분산 원본</span><span aria-hidden="true">⤳</span><span class="sketch-node intermediate">임시 테이블</span><span aria-hidden="true">⤳</span><span class="sketch-node">분산 대상</span></div>
-  <div class="pipeline-route revised"><span class="route-label">변경</span><span class="sketch-node">분산 원본</span><span class="direct-arrow" aria-hidden="true">⤳</span><span class="sketch-node">분산 대상</span></div>
-  <figcaption>중간 결과를 모았다가 재분배하는 단계를 줄이고 직접 적재</figcaption>
-</figure>
-<style>
-.pipeline-sketch{margin:22px 0;background:#fffdf6;padding:20px 22px;border:1px solid #d5ded6;border-radius:3px 9px 5px 8px;transform:rotate(-.3deg)}.pipeline-route{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:12px;color:#637684}.pipeline-route+.pipeline-route{margin-top:18px}.route-label{width:32px;flex-shrink:0;font-size:10px}.sketch-node{padding:8px 10px;border:1.5px solid #7d9da5;border-radius:6px 3px 8px 4px;color:#314d63;background:#fbfefa;white-space:nowrap}.intermediate{border-style:dashed;color:#7a6a58;background:#fbf0e4}.pipeline-route>span:not(.sketch-node):not(.route-label){font-size:24px;line-height:1;color:#7a9a9f}.revised .direct-arrow{flex:1;max-width:126px;text-align:center;border-bottom:1px dashed #94bcb9}.revised .sketch-node{background:#e6f3ef}.pipeline-sketch figcaption{font-size:11px;color:#596e78;margin-top:18px;line-height:1.7}@media(max-width:760px){.pipeline-sketch{padding:17px 12px;transform:none}.pipeline-route{gap:5px;font-size:10px}.route-label{width:23px;font-size:9px}.sketch-node{padding:7px 5px}.pipeline-route>span:not(.sketch-node):not(.route-label){font-size:19px}.pipeline-sketch figcaption{font-size:11px}}
-</style>

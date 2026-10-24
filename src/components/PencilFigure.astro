@@ -1,0 +1,51 @@
+---
+interface Props { kind?:'batch'|'speaktext'|'forgesync'|'db-fleet-ops'|'reservation-system' }
+const {kind='batch'}=Astro.props;
+const configs={
+ batch:{labels:['분산 원본','임시 테이블','분산 대상'],caption:'중간 결과를 모았다가 재분배하던 경로에서, 분산 대상으로 직접 적재하는 경로로 변경했습니다.',icons:['database','paper','database']},
+ speaktext:{labels:['발화자 색 구분','수정할 대사 선택','발화자 일괄 변경'],caption:'발화자를 색으로 구분하고, 잘못 연결된 대사를 골라 한 번에 수정하는 화면과 API를 구현했습니다.',icons:['voices','select','edit']},
+ forgesync:{labels:['작업·멈춤·기록 없음','조사할 구간 선택','당시 원본 조회'],caption:'기록이 없는 시간을 정지에서 분리하고, 선택한 구간의 원본 기록을 조회하도록 구성했습니다.',icons:['timeline','search','paper']},
+ 'db-fleet-ops':{labels:['백업 파일','임시 DB 복원','필수 테이블 조회'],caption:'파일 생성 여부 대신 실제 복원과 조회를 확인하고, 임시 DB 정리 실패는 별도 상태로 기록했습니다.',icons:['paper','database','check']},
+ 'reservation-system':{labels:['좌석 선점','결제 대기','미결제 5분 후 해제'],caption:'결제 중인 좌석을 선점하고, 결제하지 않은 예약의 좌석은 5분 후 해제하도록 구현했습니다.',icons:['seat','lock','clock']},
+};
+const config=configs[kind];
+const paths:Record<string,string[]>={
+ database:['M29 26C30 9 130 9 131 26C132 43 28 44 29 26Z','M29 27 30 76C30 96 129 96 130 75L131 27','M30 50C48 65 111 64 130 48','M32 73C54 85 111 83 128 72'],
+ paper:['M43 12 110 15 116 90 39 88 43 12Z','M54 32 96 34M53 45 102 47M54 58 93 60M53 72 84 72'],
+ voices:['M15 24 74 21 73 62 51 61 33 77 36 61 17 62 15 24Z','M85 35 145 38 142 79 122 78 111 92 108 77 86 76 85 35Z','M29 37 59 36M29 48 51 48M99 51 131 52M99 63 124 64'],
+ select:['M25 22 138 20M26 46 134 48M24 75 137 72','M12 41 151 40 150 56 10 59 12 41Z','M12 66 148 64 151 85 10 84 12 66Z'],
+ edit:['M34 19 113 22 115 88 32 88 34 19Z','M57 66 113 12 127 26 71 78 52 82 57 66Z','M105 22 117 34M54 47 78 48'],
+ timeline:['M14 72C49 74 118 71 149 72','M20 63 21 36 50 37 51 63M104 63 104 36 137 37 138 64','M61 48 92 48M64 54 88 54','M74 32Q80 21 87 33Q91 38 80 43L80 45M80 59 80 61'],
+ search:['M42 28C76 5 115 27 109 55C106 87 51 88 36 61C28 48 31 36 42 28Z','M108 72 142 95M102 78 135 99','M52 41 90 41M52 54 81 54'],
+ check:['M33 19 119 19 120 89 31 90 33 19Z','M51 45 66 59 96 31','M50 74 98 73'],
+ seat:['M40 15 112 17 113 57 41 55 40 15Z','M31 61 122 61 126 75 29 75 31 61Z','M40 76 37 94M114 76 118 94'],
+ lock:['M37 46 119 46 121 92 35 91 37 46Z','M53 45 53 29C53 1 108 4 105 31L105 45','M76 63C65 64 69 75 77 76C86 74 87 64 76 63ZM77 76 77 82'],
+ clock:['M83 10C130 14 143 66 112 89C78 112 27 84 28 51C27 22 59 7 83 10Z','M80 27 79 55 105 66','M18 20 37 16M16 15 21 31'],
+};
+---
+<figure class:list={['pencil-figure',{'pencil-batch':kind==='batch'}]} data-pencil>
+  <div class="pencil-stages">
+    {config.labels.map((label,i)=><div class="pencil-stage">
+      <svg viewBox="0 0 160 110" fill="none" aria-hidden="true" focusable="false">
+        <path class="pencil-shade" d={i===1?'M35 65 125 32M35 71 126 38M36 77 125 44M39 82 127 50':'M32 72 117 41M33 78 122 45M35 84 124 51'} />
+        <g class="pencil-ink">{paths[config.icons[i]].map(d=><><path class="pencil-echo" d={d} transform="translate(.8 -.6)"/><path class="pencil-stroke" pathLength="100" d={d}/></>)}</g>
+      </svg>
+      <p>{label}</p>
+      {i<2&&<svg class="pencil-arrow" viewBox="0 0 55 30" fill="none" aria-hidden="true"><path class="pencil-stroke" pathLength="100" d="M4 18Q23 8 47 14M36 5 48 14 37 24" /></svg>}
+    </div>)}
+  </div>
+  {kind==='batch'&&<div class="pencil-bypass"><span>변경 후 직접 적재</span><svg viewBox="0 0 480 40" fill="none" aria-hidden="true"><path class="pencil-stroke" pathLength="100" d="M13 8C67 36 383 36 458 9M445 8 461 8 454 24" /></svg></div>}
+  <figcaption>{config.caption}</figcaption>
+</figure>
+<script>
+const figures=document.querySelectorAll<HTMLElement>('[data-pencil]');
+if('IntersectionObserver' in window){
+ const observer=new IntersectionObserver(entries=>{
+  for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('pencil-drawn');observer.unobserve(entry.target);}
+ },{threshold:.15});
+ figures.forEach(figure=>observer.observe(figure));
+}
+</script>
+<style>
+.pencil-figure{margin:28px 0 32px;padding:21px 17px 18px;background:#fffef9;border:0;border-radius:3px;color:#4e5558}.pencil-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.pencil-stage{min-width:0;position:relative;text-align:center}.pencil-stage>svg:first-child{width:100%;height:112px;overflow:visible}.pencil-stroke{stroke:#555b60;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.pencil-echo{stroke:#8e9392;stroke-width:.75;opacity:.4;stroke-linecap:round}.pencil-shade{stroke:#94bdb9;stroke-width:4;opacity:.22;stroke-linecap:round}.pencil-stage:nth-child(2) .pencil-shade{stroke:#d9997b}.pencil-stage p{font-size:13px;line-height:1.6;margin:7px 0 0!important;color:#4c5c65}.pencil-arrow{position:absolute;width:37px;height:24px;right:-30px;top:49px}.pencil-figure figcaption{margin-top:23px;padding-top:13px;border-top:1px dashed #d5d8cf;font-size:12px;line-height:1.85;color:#67716e}.pencil-bypass{position:relative;margin:8px 25px 0}.pencil-bypass svg{width:100%;height:32px}.pencil-bypass span{position:absolute;left:50%;top:13px;transform:translateX(-50%);font-size:10px;white-space:nowrap;background:#fffef9;padding:0 8px;color:#557c79}.pencil-drawn .pencil-stroke{animation:pencil-draw .75s ease-out both}.pencil-drawn .pencil-stage:nth-child(2) .pencil-stroke{animation-delay:.25s}.pencil-drawn .pencil-stage:nth-child(3) .pencil-stroke{animation-delay:.5s}.pencil-drawn .pencil-bypass .pencil-stroke{animation-delay:.7s}@keyframes pencil-draw{from{stroke-dasharray:100;stroke-dashoffset:100}to{stroke-dasharray:100;stroke-dashoffset:0}}@media(max-width:760px){.pencil-figure{padding:16px 10px;margin-block:23px}.pencil-stages{gap:13px}.pencil-stage>svg:first-child{height:79px}.pencil-stage p{font-size:11px}.pencil-arrow{width:25px;right:-19px;top:34px}.pencil-figure figcaption{font-size:12px;margin-top:20px}.pencil-bypass{margin-inline:8px}.pencil-bypass span{font-size:9px}}
+</style>

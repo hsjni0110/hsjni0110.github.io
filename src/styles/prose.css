@@ -8,3 +8,4 @@
 .prose>h2{background:none;border-radius:0;border-top:1px solid var(--line);padding:24px 0 0;margin:48px 0 21px;font-size:27px;line-height:1.5}.prose>h2::before,.prose>h2::after{content:none}.prose>h2:first-child{margin-top:0;border-top:0;padding-top:0}.prose>p:has(>strong:first-child){border:0;padding-left:0}.case-header .tech-tags{margin-top:24px}.prose h3{font-size:20px;line-height:1.5}.prose>p{max-width:100%}
 @media(max-width:760px){.prose>h2{font-size:23px;margin-top:36px;padding-top:21px;line-height:1.5}.prose>h2:first-child{padding-top:0}.prose>p:has(>strong:first-child){padding-left:0}.case-header .tech-tags{margin-top:20px}}
 .prose>h2{text-wrap:balance}
+.prose>.pencil-figure+h2{margin-top:24px}

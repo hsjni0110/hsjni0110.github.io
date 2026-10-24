@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import SiteLayout from './SiteLayout.astro';
 import ContactLinks from '../components/ContactLinks.astro';
 import TechTags from '../components/TechTags.astro';
+import PencilFigure from '../components/PencilFigure.astro';
 import Sketch from '../components/Sketch.astro';
 import Figure from '../components/Figure.astro';
 import { withBase } from '../lib/paths';
@@ -23,7 +24,7 @@ const related = (await getCollection('projects')).filter(x => x.id !== project.i
       {p.hero && <Figure {...p.hero} sourceUrl={p.hero.sourceUrl || p.sources[0]?.url} eager />}
     </header>
     <div class="case-body shell">
-      <div class="prose"><slot />
+      <div class="prose"><PencilFigure kind={project.id as 'speaktext'|'forgesync'|'db-fleet-ops'|'reservation-system'} /><slot />
         {p.sources.length>0 && <section class="case-sources"><h2 id="sources">코드·문서</h2><ul>{p.sources.map(source=><li><a href={source.url}>{source.label} <span aria-hidden="true">↗</span></a></li>)}</ul></section>}
       </div>
     </div>
