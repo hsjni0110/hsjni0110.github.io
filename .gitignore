@@ -7,3 +7,13 @@ test-results/
 playwright-report/
 .env*
 .DS_Store
+
+# Local research, draft assets and review captures (existing Git history is retained).
+docs/content/
+docs/research/
+docs/superpowers/
+docs/verification/
+output/*
+!output/pdf/
+output/pdf/*
+!output/pdf/han-seokjin-resume.pdf

@@ -1,42 +1,55 @@
-# 로컬 확인과 배포 준비
+# GitHub Pages 배포
 
-현재 결과물은 로컬 전용입니다. 원격 저장소 생성·푸시·호스팅 등록·공개 배포는 수행하지 않았습니다.
+대상 저장소: `hsjni0110/hsjni0110.github.io`
+사이트 주소: `https://hsjni0110.github.io/`
 
-## 실행과 검사
+## 처음 올릴 폴더
 
-`npm ci`, `npm run verify`, `npm run dev -- --port 4322`로 확인합니다. Chromium이 없으면 `npx playwright install chromium`을 먼저 실행합니다. 별도 서버용 환경변수는 필요하지 않습니다.
+`output/github-pages/`는 사이트 소스, 사용 중인 이미지와 폰트, 공개 이력서, 빌드·테스트 도구, 배포 설정만 복사한 공개용 폴더입니다. 원래 작업 폴더의 `.git`과 내부 문서, 검증 이미지, 폐기한 시안은 포함하지 않습니다.
 
-`npm run preview`는 production build를 127.0.0.1:4321에서 제공합니다. 개발 서버와 테스트 서버는 서로 다른 포트를 씁니다.
+원래 작업 폴더의 Git 이력에는 내부 자료가 있습니다. 원래 저장소를 push하거나 복제하지 말고, 공개용 폴더에서 새 이력을 시작합니다. 내부 자료는 원래 폴더에 보존되어 있습니다.
 
-## 주소 설정
+## 최초 업로드
 
-- `SITE_URL`: 실제 배포 HTTPS origin. 경로 없이 예를 들어 `https://사용자도메인` 형식으로 지정합니다. 실제 주소가 정해지기 전에는 생략합니다.
-- `BASE_PATH`: `/` 기본값. 저장소 하위 배포라면 `/저장소명/`처럼 선행·후행 슬래시를 포함합니다.
-- `TEST_BASE_PATH`: Playwright가 검사할 동일한 하위 경로. 일반 로컬 검사에서는 생략합니다.
-
-SITE_URL이 없으면 canonical·절대 OG 이미지 URL·sitemap·robots를 만들지 않습니다. 로컬 화면과 나머지 메타데이터는 그대로 확인할 수 있습니다. 실제 주소가 정해진 공개 빌드에만 SITE_URL을 전달합니다.
-
-## 하위 경로의 로컬 회귀 검사
-
-다음은 공개 배포가 아닌 시험용 빌드입니다.
+1. GitHub에서 `hsjni0110.github.io`라는 빈 Public 저장소를 생성합니다. 기존 저장소가 있다면 덮어쓰지 말고 먼저 내용을 확인합니다.
+2. 저장소의 Settings → Pages → Source를 GitHub Actions로 선택합니다.
+3. 아래 명령은 **공개용 폴더에서만** 실행합니다.
 
 ```sh
-SITE_URL=https://example.invalid BASE_PATH=/portfolio/ TEST_BASE_PATH=/portfolio/ npm run verify
+cd /Users/hanseokjin/Desktop/project/portfolio/output/github-pages
+git init -b main
+git add .
+git commit -m "Initial portfolio"
+git remote add origin https://github.com/hsjni0110/hsjni0110.github.io.git
+git push -u origin main
 ```
 
-시험 후 일반 `npm run verify`를 실행해 가상 주소와 시험 base를 제거한 기본 로컬 출력을 다시 만듭니다. `.invalid` 주소의 결과물을 외부에 올리지 않습니다.
+4. Actions → Deploy portfolio에서 성공 여부를 확인한 뒤 사이트와 상세 페이지, 이력서 다운로드를 확인합니다.
 
-## 추후 GitHub Pages를 사용할 경우
+`.github/workflows/deploy.yml`은 main push 또는 수동 실행 시 Node 24에서 타입 검사·정적 빌드·링크 및 공개 이력서 검사를 수행합니다. 성공한 dist만 GitHub Pages에 배포합니다. 별도 PAT는 필요하지 않습니다.
 
-실제 계정·저장소·사용자 사이트 여부를 정한 뒤 Astro 공식 GitHub Pages 가이드에 따라 Actions를 구성합니다. 기본 명령은 `npm ci`, `npm run verify`, 결과 폴더는 `dist/`입니다. 프로젝트 사이트는 BASE_PATH가 필요하고 사용자 루트 사이트는 `/`를 사용합니다. 이번 구현에는 자동 배포 workflow를 추가하지 않았습니다.
+## 이후 수정
 
-공개 직전 확인:
+공개용 폴더를 저장소 작업 위치로 사용합니다. main에 커밋을 올릴 때마다 자동 배포됩니다. 원래 작업 폴더를 계속 쓴다면 변경한 소스·자산만 공개용 폴더로 옮겨 검사한 뒤 커밋합니다. `.git`이나 내부 docs 폴더를 복사하지 않습니다.
 
-1. 실제 SITE_URL·BASE_PATH로 빌드하고 링크·서체·PDF를 다시 검사합니다.
-2. 사이트 이름과 공개 본문·이미지·PDF의 개인정보 및 근거 범위를 다시 검수합니다.
-3. HINT 진행·수료 상태와 상대 시점 표현을 현재 기준으로 확인합니다.
-4. 서비스에서 `/projects/speaktext/` 같은 상세 직접 접근·새로고침과 존재하지 않는 경로의 HTTP 404를 확인합니다.
-5. canonical·OG 이미지·sitemap URL이 실제 주소이며 robots가 sitemap을 가리키는지 확인합니다.
-6. 재배포 시 HTML 캐시와 해시된 자산 경로를 점검하고, 이메일 링크와 PDF 다운로드를 실제 브라우저에서 확인합니다.
+## 로컬 확인
 
-외부 호스팅에서의 HTTP·캐시 동작은 아직 검증하지 않았습니다. 공개 배포는 별도의 요청으로 진행합니다.
+```sh
+npm ci
+npm run dev -- --port 4322
+```
+
+전체 검사:
+
+```sh
+npx playwright install chromium
+SITE_URL=https://hsjni0110.github.io BASE_PATH=/ npm run verify
+```
+
+정적 미리보기: `npm run preview` → http://127.0.0.1:4321/
+
+`output/pdf/han-seokjin-resume.pdf`는 공개 이력서의 검증용 사본으로 포함합니다. 공개 PDF와 검증용 사본을 함께 갱신해야 합니다. 이력서 생성은 로컬에서 ReportLab과 macOS Arial Unicode 폰트를 사용합니다. Pages 배포 자체에는 Python이 필요하지 않습니다.
+
+저장소 이름을 portfolio처럼 바꾸면 BASE_PATH를 `/portfolio/`로 변경해야 합니다. 현재 설정은 사용자 루트 사이트 전용입니다.
+
+현재 원격 업로드와 실제 배포는 수행하지 않았습니다.

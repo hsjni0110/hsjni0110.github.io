@@ -33,18 +33,17 @@ npm run verify
 
 ## 콘텐츠 수정
 
-- `src/content/projects/`: 다섯 사례의 본문과 메타, 메인 요약의 단일 출처
+- `src/content/projects/`: 네 사례의 본문과 메타, 메인 요약의 단일 출처
 - `src/data/profile.ts`: 공개 연락처·실무 경력·활동
 - `src/pages/index.astro`: 메인 구성
 - `src/styles/`: 색·타이포그래피·반응형 스타일
-- `docs/content/`: 내부 근거·자산 출처 장부. 공개 출력에 포함되지 않습니다.
 
-사진과 실제 화면은 `src/assets/`에 선별 보관합니다. 취업 서류 원본이나 회사 내부 자료를 `public/`에 넣지 않습니다. 동시생활 앱의 실제 화면과 모집 링크는 공개하지 않습니다.
+사진과 실제 화면은 `src/assets/`에 선별 보관합니다. 취업 서류 원본이나 회사 내부 자료를 `public/`에 넣지 않습니다. 
 
 ## 이력서 갱신
 
-공개용 이력서의 생성 원본은 `scripts/create-resume.py`입니다. ReportLab을 사용할 수 있는 Python으로 실행하면 `output/pdf/han-seokjin-resume.pdf`를 갱신합니다. 렌더링한 두 페이지를 확인한 뒤 같은 파일을 `public/resume.pdf`로 복사합니다. `npm run verify`가 두 파일의 SHA-256 일치를 확인합니다. 공개 전 주소·전화번호·연봉·계좌 등 제외 항목과 PDF 화면을 다시 확인합니다.
+공개용 이력서의 생성 원본은 `scripts/create-resume.py`입니다. ReportLab을 사용할 수 있는 Python으로 실행하면 `output/pdf/han-seokjin-resume.pdf`를 갱신합니다. 렌더링한 세 페이지를 확인한 뒤 같은 파일을 `public/resume.pdf`로 복사합니다. `npm run verify`가 두 파일의 SHA-256 일치를 확인합니다. 공개 전 주소·전화번호·연봉·계좌 등 제외 항목과 PDF 화면을 다시 확인합니다.
 
 ## 배포
 
-아직 공개 배포하지 않았습니다. 환경변수와 호스팅 확인 절차는 [배포 준비](docs/deployment.md)에 있습니다. Git 원격은 생성하지 않았습니다.
+`hsjni0110.github.io` 저장소의 main에 push하면 GitHub Actions가 검사 후 배포합니다. 최초 연결과 로컬 실행 방법은 [배포 안내](docs/deployment.md)에 있습니다. 원격 업로드는 아직 수행하지 않았습니다.

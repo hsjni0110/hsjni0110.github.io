@@ -1,26 +1,60 @@
 ---
 import { getImage } from 'astro:assets';
-import sheet from '../assets/illustration/coding-loop-v1.png';
-const sprite=await getImage({src:sheet,width:1400,format:'webp'});
+import sheet from '../assets/illustration/coding-loop-four-transparent.png';
+const sprite=await getImage({src:sheet,width:1254,format:'png'});
 ---
-<div class="character-player" data-playing="false">
-  <div class="coding-sprite" role="img" aria-label="코딩에 몰입하다가 답답해서 책상을 두드리고, 해결되자 놀란 뒤 다시 코딩하는 한석진 캐릭터" style={{backgroundImage:`url('${sprite.src}')`}}></div>
+<div class="character-player" data-playing="false" data-frame-count="4" data-loop-ms="4800">
+  <div class="coding-sprite" role="img" aria-label="타이핑하다 책상을 가볍게 두드리고, 해결에 놀란 뒤 다시 몰입하는 한석진 캐릭터">
+    <div class="sprite-layer sprite-current" style={{backgroundImage:`url('${sprite.src}')`}}></div>
+  </div>
   <button class="character-control" type="button" hidden>움직임 일시정지</button>
 </div>
 <script>
   document.querySelectorAll<HTMLElement>('.character-player').forEach(player=>{
     const button=player.querySelector<HTMLButtonElement>('button')!;
+    const current=player.querySelector<HTMLElement>('.sprite-current')!;
     const motion=matchMedia('(prefers-reduced-motion: reduce)');
+    const count=Number(player.dataset.frameCount);
+    const duration=Number(player.dataset.loopMs);
+    let elapsed=0,last:number|null=null,frame=0;
+    const position=(index:number)=>`${index%2*100}% ${Math.floor(index/2)*100}%`;
+    const render=()=>{
+      const progress=elapsed%duration/duration*count;
+      const index=Math.floor(progress);
+      current.style.backgroundPosition=position(index);
+      player.dataset.frame=String(index);
+    };
+    const tick=(now:number)=>{
+      if(player.dataset.playing!=='true'||document.hidden)return;
+      if(last!==null)elapsed+=Math.min(now-last,100);
+      last=now;render();frame=requestAnimationFrame(tick);
+    };
+    const start=()=>{last=null;if(!document.hidden)frame=requestAnimationFrame(tick);};
     const setPlaying=(playing:boolean)=>{
+      cancelAnimationFrame(frame);last=null;
       player.dataset.playing=String(playing&&!motion.matches);
       button.textContent=motion.matches?'정지 화면':player.dataset.playing==='true'?'움직임 일시정지':'움직임 재생';
       button.disabled=motion.matches;
+      if(motion.matches)elapsed=0;
+      render();if(player.dataset.playing==='true')start();
     };
     button.hidden=false;setPlaying(true);
     button.addEventListener('click',()=>setPlaying(player.dataset.playing!=='true'));
     motion.addEventListener('change',()=>setPlaying(false));
+    document.addEventListener('visibilitychange',()=>{
+      cancelAnimationFrame(frame);last=null;
+      if(!document.hidden&&player.dataset.playing==='true')start();
+    });
+    window.addEventListener('pagehide',()=>cancelAnimationFrame(frame),{once:true});
+    window.addEventListener('pageshow',event=>{if(event.persisted&&player.dataset.playing==='true')start();});
   });
 </script>
+
 <style>
-.character-player{position:relative;width:min(100%,490px);margin-inline:auto}.coding-sprite{width:100%;aspect-ratio:1;background-size:200% 200%;background-position:0 0;background-repeat:no-repeat;mix-blend-mode:multiply}.character-player[data-playing=true] .coding-sprite{animation:code-loop 4.8s steps(1,end) infinite}.character-control{display:block;margin:10px 8px 0 auto;border:0;border-bottom:1px solid #9dbec5;background:transparent;color:#4b687b;font:inherit;font-size:11px;padding:8px 0;min-height:44px;cursor:pointer}.character-control[hidden]{display:none}.character-control:disabled{border:0;cursor:default}.character-control:hover{color:#23344f}@keyframes code-loop{0%,27%{background-position:0 0}28%,39%{background-position:100% 0}40%,59%{background-position:0 100%}60%,100%{background-position:100% 100%}}@media(max-width:760px){.character-player{max-width:360px}.character-control{margin-top:0;font-size:10px}}
+.character-player{position:relative;width:min(100%,490px);margin-inline:auto}
+.coding-sprite{position:relative;width:100%;aspect-ratio:1;mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent),linear-gradient(to bottom,transparent,#000 6%,#000 92%,transparent);mask-composite:intersect}
+.sprite-layer{position:absolute;inset:0;background-size:200% 200%;background-position:0 0;background-repeat:no-repeat}
+.character-control{display:block;margin:10px 8px 0 auto;border:0;border-bottom:1px solid #9dbec5;background:transparent;color:#4b687b;font:inherit;font-size:11px;padding:8px 0;min-height:44px;cursor:pointer}
+.character-control[hidden]{display:none}.character-control:disabled{border:0;cursor:default}.character-control:hover{color:#23344f}
+@media(max-width:760px){.character-player{max-width:360px}.character-control{margin-top:0;font-size:10px}}
 </style>
