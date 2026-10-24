@@ -10,26 +10,16 @@ const { project } = Astro.props;
 const p = project.data;
 const speak = project.id==='speaktext';
 ---
-<article class:list={['project-story', { 'forge-story': !speak }]} id={project.id} data-project={project.id}>
+<article class:list={['project-story', { 'forge-story': !speak, 'text-case': speak }]} id={project.id} data-project={project.id}>
   <div class="shell">
     <div class="project-heading" data-reveal><Sketch kind={speak?'voice':'data'} class="project-sketch" /><div class="project-head"><span class="project-count">{speak?'01':'02'}</span><strong>{p.title}</strong><span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'} · {p.period}</span></div><p class="service-intro">{speak?'소설을 등장인물별 스크립트와 음성으로 바꾸고, 작가가 생성 결과를 편집하는 서비스입니다.':'CNC 설비 기록을 재생하며 정지·가공 시간 변화 구간과 당시 기록을 조사하는 도구입니다.'}</p></div>
     <div class="story-grid">
       <div class="story-copy" data-reveal>
-        <h3>{speak?<>잘못 연결된 발화자를<br />한 번에 수정</>:<>설비 정지와 구분한<br />기록 누락</>}</h3>
-        <p class="story-description">{speak?'잘못 연결된 대사를 찾기 쉽도록 발화자별 색 구분을 제안했습니다. 편집 화면과 여러 대사의 발화자를 한 번에 바꾸는 API를 구현했습니다.':'기록이 없다는 이유로 정지를 확정하지 않도록 분류 기준을 바꿨습니다. 하루 요약에서 조사할 구간을 고르고 당시 원본 기록을 확인하는 화면을 구현했습니다.'}</p>
-        <a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>사례 읽기 <span aria-hidden="true">↗</span></a>
+        <h3>{speak?<>발화자 색 구분과<br />대사 일괄 수정</>:<>기록 누락·정지 분리와<br />원본 기록 조회</>}</h3>
+        <p class="story-description">{speak?'생성된 음성에서 대사가 다른 인물에게 연결되는 오류를 확인했습니다. 발화자별 색 구분을 제안하고 대사 일괄 수정 화면과 API를 구현했습니다.':'기록이 없다는 이유로 정지를 확정하지 않도록 분류 기준을 바꿨습니다. 하루 요약에서 조사할 구간을 고르고 당시 원본 기록을 확인하는 화면을 구현했습니다.'}</p>
+        <div class="case-preview-links"><a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>사례 읽기 <span aria-hidden="true">↗</span></a>{speak && <a class="text-link" href={p.sources[2].url}>일괄 수정 API PR <span aria-hidden="true">↗</span></a>}</div>
       </div>
-      {speak ? <figure class="decision-panel speaker-example" data-reveal>
-        <div class="panel-top"><span>발화자 수정 방식</span><span>설명용 예시</span></div>
-        <div class="speaker-key"><span class="speaker-a">발화자 A</span><span class="speaker-b">발화자 B</span></div>
-        <div class="example-lines" aria-label="발화자 색 구분과 대사 선택 예시">
-          <div><span class="line-selection" aria-hidden="true">—</span><span>대사 01</span><b class="speaker-a">A</b></div>
-          <div class="example-selected"><span class="line-selection" aria-hidden="true">✓</span><span>대사 02</span><b class="speaker-b">B</b></div>
-          <div class="example-selected"><span class="line-selection" aria-hidden="true">✓</span><span>대사 03</span><b class="speaker-b">B</b></div>
-        </div>
-        <div class="example-change"><span>선택한 대사 2개</span><strong>B <span aria-hidden="true">→</span> A</strong></div>
-        <figcaption>발화자 B에 연결된 대사 2개를 A로 바꾸는 설명용 도식입니다.</figcaption>
-      </figure> : <div class="comparison-evidence" data-reveal>
+      {!speak && <div class="comparison-evidence" data-reveal>
         <figure class="compare-current"><Image src={after} alt="개선 후: 작업·멈춤·기록 없음을 구분한 ForgeSync 화면" widths={[640,1120]} sizes="(max-width: 760px) calc(100vw - 40px), 56vw" /><figcaption><span class="evidence-label">개선 후</span>기록이 없는 시간과 실제 정지를 분리했습니다.</figcaption></figure>
         <details class="before-evidence"><summary>개선 전 화면 비교 <span class="disclosure-mark" aria-hidden="true">+</span></summary><figure><Image src={before} alt="개선 전: 기록 누락과 정지가 구분되지 않던 ForgeSync 화면" widths={[640,1120]} sizes="(max-width: 760px) calc(100vw - 40px), 56vw" /><figcaption>기록이 없는 시간까지 정지로 읽힐 수 있던 기존 화면입니다.</figcaption></figure></details>
       </div>}
