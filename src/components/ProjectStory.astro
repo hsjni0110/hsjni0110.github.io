@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { withBase } from '../lib/paths';
+import Sketch from './Sketch.astro';
 import TechTags from './TechTags.astro';
 import { writing } from '../data/writing';
 import before from '../assets/projects/forgesync/before.webp';
@@ -13,7 +14,7 @@ const speak = project.id==='speaktext';
 ---
 <article class:list={['project-story', { 'forge-story': !speak }]} id={project.id} data-project={project.id}>
   <div class="shell">
-    <div class="project-heading" data-reveal><div class="project-head"><span class="project-count">{speak?'01':'02'}</span><strong>{p.title}</strong><span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'} · {p.period}</span></div><p class="service-intro">{speak?'소설을 등장인물별 스크립트와 음성으로 바꾸고, 작가가 생성 결과를 편집하는 서비스입니다.':'CNC 설비 기록을 재생하며 정지·가공 시간 변화 구간과 당시 기록을 조사하는 도구입니다.'}</p></div>
+    <div class="project-heading" data-reveal><Sketch kind={speak?'voice':'data'} class="project-sketch" /><div class="project-head"><span class="project-count">{speak?'01':'02'}</span><strong>{p.title}</strong><span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'} · {p.period}</span></div><p class="service-intro">{speak?'소설을 등장인물별 스크립트와 음성으로 바꾸고, 작가가 생성 결과를 편집하는 서비스입니다.':'CNC 설비 기록을 재생하며 정지·가공 시간 변화 구간과 당시 기록을 조사하는 도구입니다.'}</p></div>
     <div class="story-grid">
       <div class="story-copy" data-reveal>
         <h3>{speak?<>생성 결과를 고치는<br />작가의 편집 기능</>:<>멈춤과 빈 기록 사이,<br />판단 기준의 재설계</>}</h3>

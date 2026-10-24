@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import SiteLayout from './SiteLayout.astro';
 import ContactLinks from '../components/ContactLinks.astro';
+import Sketch from '../components/Sketch.astro';
 import Figure from '../components/Figure.astro';
 import { withBase } from '../lib/paths';
 import '../styles/prose.css';
@@ -16,7 +17,7 @@ const related = (await getCollection('projects')).filter(x => x.id !== project.i
     <header class="case-header shell">
       <a class="back-link text-link" href={withBase('/#cases')}><span aria-hidden="true">←</span> 전체 사례로 돌아가기</a>
       <p class="case-project">{p.title} <span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'} · {p.period}</span></p>
-      <h1>{p.lead}</h1>
+      <div class="case-title-art"><h1>{p.lead}</h1><Sketch kind={project.id==='speaktext'?'voice':project.id==='forgesync'?'data':'work'} /></div>
       {p.hero && <Figure {...p.hero} sourceUrl={p.hero.sourceUrl || p.sources[0]?.url} eager />}
     </header>
     <div class="case-body shell">

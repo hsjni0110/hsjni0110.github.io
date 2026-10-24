@@ -1,0 +1,10 @@
+---
+interface Props { kind?: 'work'|'voice'|'data'|'writing'; class?: string }
+const {kind='work',class:className}=Astro.props;
+---
+<svg class:list={['sketch',className]} viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  {kind==='work'&&<><path d="M18 36 58 17l43 20-42 20L18 36Z" fill="#B4DCDD"/><path d="m18 50 41 20 42-20M18 65l41 20 42-20M18 36l40-19 43 20-42 20-41-21Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="m92 13 3-8m9 16 8-2" stroke="#D98168" stroke-width="3" stroke-linecap="round"/></>}
+  {kind==='voice'&&<><path d="M18 22h79v48H58L39 85V70H18V22Z" fill="#F8E4D9" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M34 43v9m12-17v26m13-19v13m13-24v32m13-20v9" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="102" cy="18" r="7" fill="#8CC7C8"/></>}
+  {kind==='data'&&<><rect x="16" y="18" width="87" height="61" rx="7" fill="#C1E1DF" stroke="currentColor" stroke-width="3"/><path d="M29 60h12l8-18 13 28 10-21h17M47 89h26M60 80v9" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="m101 9 6-5" stroke="#D98168" stroke-width="3" stroke-linecap="round"/></>}
+  {kind==='writing'&&<><path d="m29 13 65 7-6 71-65-7 6-71Z" fill="#FAF0D9" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="m41 34 35 4m-37 9 35 4m-36 9 23 3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="m81 58 23-31 7 5-23 31-9 6 2-11Z" fill="#8CC7C8" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></>}
+</svg>
