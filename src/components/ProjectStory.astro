@@ -25,15 +25,17 @@ const speak = project.id==='speaktext';
         <p class="observed-result">{speak?'팀 내부에서는 잘못 연결된 대사를 찾고 수정하기 편해졌다는 반응이 있었습니다.':'하루 상태 요약에서 구간을 고른 뒤, 해당 시점의 원본 기록을 확인하는 흐름을 구현했습니다.'}</p>
         <a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>사례 읽기 <span aria-hidden="true">↗</span></a>
       </div>
-      {speak ? <div class="decision-panel" data-reveal>
-        <div class="panel-top"><span>설계 메모</span><span aria-hidden="true">01 / SpeakText</span></div>
-        <div class="decision-line"><span class="decision-step">생성</span><p>원문 분할 처리<br /><strong>같은 인물의 연결</strong></p></div>
-        <div class="decision-connector" aria-hidden="true">↓</div>
-        <div class="decision-line"><span class="decision-step">확인</span><p>음성 청취 중 발견한<br /><strong>잘못된 발화자 연결</strong></p></div>
-        <div class="decision-connector" aria-hidden="true">↓</div>
-        <div class="decision-line decision-answer"><span class="decision-step">수정</span><p>발화자별 색 구분과<br /><strong>작가의 대사 편집</strong></p></div>
-        <p class="panel-caption">생성·검토·수정의 판단 흐름을 요약한 도식입니다.</p>
-      </div> : <div class="comparison-evidence" data-reveal>
+      {speak ? <figure class="decision-panel speaker-example" data-reveal>
+        <div class="panel-top"><span>발화자 수정 방식</span><span>설명용 예시</span></div>
+        <div class="speaker-key"><span class="speaker-a">발화자 A</span><span class="speaker-b">발화자 B</span></div>
+        <div class="example-lines" aria-label="발화자 색 구분과 대사 선택 예시">
+          <div><span class="line-selection" aria-hidden="true">—</span><span>대사 01</span><b class="speaker-a">A</b></div>
+          <div class="example-selected"><span class="line-selection" aria-hidden="true">✓</span><span>대사 02</span><b class="speaker-b">B</b></div>
+          <div class="example-selected"><span class="line-selection" aria-hidden="true">✓</span><span>대사 03</span><b class="speaker-b">B</b></div>
+        </div>
+        <div class="example-change"><span>선택한 대사 2개</span><strong>B <span aria-hidden="true">→</span> A</strong></div>
+        <figcaption>색으로 발화자를 구분하고, 잘못 연결된 대사를 선택해 발화자를 한 번에 변경하는 방식입니다. 실제 제품 화면이 아닌 설명용 도식입니다.</figcaption>
+      </figure> : <div class="comparison-evidence" data-reveal>
         <figure class="compare-current"><Image src={after} alt="개선 후: 작업·멈춤·기록 없음을 구분한 ForgeSync 화면" widths={[640,1120]} sizes="(max-width: 760px) calc(100vw - 40px), 56vw" /><figcaption><span class="evidence-label">개선 후</span>기록이 없는 시간과 실제 정지를 분리했습니다.</figcaption></figure>
         <details class="before-evidence"><summary>개선 전 화면 비교 <span class="disclosure-mark" aria-hidden="true">+</span></summary><figure><Image src={before} alt="개선 전: 기록 누락과 정지가 구분되지 않던 ForgeSync 화면" widths={[640,1120]} sizes="(max-width: 760px) calc(100vw - 40px), 56vw" /><figcaption>기록이 없는 시간까지 정지로 읽힐 수 있던 기존 화면입니다.</figcaption></figure></details>
       </div>}

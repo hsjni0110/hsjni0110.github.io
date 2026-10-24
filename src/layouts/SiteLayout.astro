@@ -31,7 +31,7 @@ const image = Astro.site ? new URL(ogImage || og.src, Astro.site).href : undefin
           for (const entry of entries) {
             if (!entry.isIntersecting) continue;
             if (!reducedMotion.matches && !entry.target.contains(document.activeElement)) {
-              entry.target.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 420, easing: 'cubic-bezier(.22,1,.36,1)' });
+              entry.target.animate([{ opacity: 0.65 }, { opacity: 1 }], { duration: 180, easing: 'cubic-bezier(.22,1,.36,1)' });
             }
             reveal.unobserve(entry.target);
           }

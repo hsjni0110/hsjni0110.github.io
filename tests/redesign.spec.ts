@@ -40,3 +40,16 @@ test('reduced motion leaves content visible with no running animations', async (
   await expect(page.locator('#cases-title')).toBeVisible();
   expect(await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running').length)).toBe(0);
 });
+
+
+test('mobile puts explanatory figures before long project copy', async ({ page }) => {
+  await page.setViewportSize({ width:360,height:800 });
+  await page.goto(base);
+  for(const id of ['speaktext','forgesync']) {
+    const figure=await page.locator(`#${id} .story-grid > :last-child`).boundingBox();
+    const copy=await page.locator(`#${id} .story-copy`).boundingBox();
+    expect(figure!.y+figure!.height).toBeLessThanOrEqual(copy!.y);
+  }
+  await expect(page.locator('.speaker-example figcaption')).toContainText('설명용 도식');
+  await expect(page.locator('.example-selected')).toHaveCount(2);
+});

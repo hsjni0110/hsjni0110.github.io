@@ -22,7 +22,7 @@ test('keyboard reaches content and contact', async ({ page }) => {
 for (const width of [360,390,768,1440]) {
   test(`korean content does not overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ['', 'projects/speaktext/', 'projects/forgesync/']) {
+    for (const path of ['', 'projects/speaktext/', 'projects/forgesync/', 'projects/db-fleet-ops/', 'projects/reservation-system/']) {
       await page.goto(`${base}${path}`);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
     }
