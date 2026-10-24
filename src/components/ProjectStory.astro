@@ -1,31 +1,38 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import { withBase } from '../lib/paths';
-import Figure from './Figure.astro';
+import before from '../assets/projects/forgesync/before.webp';
+import after from '../assets/projects/forgesync/overview.webp';
 interface Props { project: CollectionEntry<'projects'> }
 const { project } = Astro.props;
 const p = project.data;
+const speak = project.id==='speaktext';
 ---
-<section class:list={['section', 'project-story', {soft: project.id === 'forgesync'}]} data-project={project.id}>
+<article class:list={['project-story', { 'forge-story': !speak }]} id={project.id} data-project={project.id}>
   <div class="shell">
-    <div class="project-head"><strong>{p.title}</strong><span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'}{p.status === 'in-development' ? ' · 개발 중' : ''}</span></div>
-    <h2>{p.lead}</h2><p class="story-description">{p.summary.problem}<br />{p.summary.decision}</p>
-    <a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>사례 읽기 <span aria-hidden="true">→</span></a>
-    {project.id === 'speaktext' && <>
-      <div class="editorial-panel">
-        <blockquote>발화자 확인과<br />잘못 연결된<br />대사 수정</blockquote>
-        <ol><li><span>↳</span><div><strong>인물의 일관성</strong><p>원문을 나눠 처리할 때도 같은 인물을 연결하기 위해 이전 등장인물 정보를 다음 생성에 전달했습니다.</p></div></li><li><span>↳</span><div><strong>작가의 검토와 수정</strong><p>작가가 등장인물 이름·목소리와 대사 연결을 확인하고 수정하는 기능을 추가했습니다.</p></div></li><li><span>↳</span><div><strong>수정의 편의</strong><p>발화자를 색으로 구분하고 여러 대사를 수정하는 API를 구현했습니다.</p></div></li></ol>
+    <div class="project-heading" data-reveal><div class="project-head"><span class="project-count">{speak?'01':'02'}</span><strong>{p.title}</strong><span>{p.kind === 'team' ? '팀 프로젝트' : '개인 프로젝트'} · {p.period}</span></div><p class="service-intro">{speak?'소설을 등장인물별 스크립트와 음성으로 바꾸고, 작가가 생성 결과를 편집하는 서비스입니다.':'CNC 설비 기록을 재생하며 정지·가공 시간 변화 구간과 당시 기록을 조사하는 도구입니다.'}</p></div>
+    <div class="story-grid">
+      <div class="story-copy" data-reveal>
+        <h3>{speak?<>생성 결과를 고치는<br />작가의 편집 기능</>:<>멈춤과 빈 기록 사이,<br />판단 기준의 재설계</>}</h3>
+        <p class="story-description">{speak?'생성된 음성을 듣다가 대사가 다른 인물에게 연결된 오류를 확인했습니다. 정확도 개선과 함께, 작가가 결과를 확인하고 수정할 방법이 필요하다고 팀과 판단했습니다.':'기록이 끊겼다는 이유로 설비가 멈췄다고 판단할 수는 없었습니다. 기록 누락과 정지를 분리하고, 작은 센서 편차가 전체 결과를 좌우하던 판정 기준도 가공 시간 중심으로 바꿨습니다.'}</p>
+        <div class="contribution-note"><span>{speak?'직접 구현한 부분':'직접 정한 규칙과 구현'}</span><p>{speak?'발화자별 색 구분을 제안하고, 편집 화면과 일괄 수정 API를 구현했습니다. 스크립트 생성·인물 동기화·음성 생성도 맡았습니다.':'데이터 변환·재생·상태 저장과 조회 화면을 구현했습니다. 기록 분류와 판정 기준, 검증 체계를 직접 설계했으며 AI 코딩 에이전트를 활용했습니다.'}</p></div>
+        <p class="observed-result">{speak?'팀 내부에서는 잘못 연결된 대사를 찾고 수정하기 편해졌다는 반응이 있었습니다.':'하루 상태 요약에서 구간을 고른 뒤, 해당 시점의 원본 기록을 확인하는 흐름을 구현했습니다.'}</p>
+        <a class="text-link story-link" href={withBase(`/projects/${project.id}/`)}>사례 읽기 <span aria-hidden="true">↗</span></a>
       </div>
-      <p class="panel-caption">작가의 검토·수정 과정을 요약한 도식입니다.</p>
-      <div class="project-points"><div><strong>제가 맡은 일</strong><p>스크립트 생성·인물 동기화·음성 생성을 맡았습니다. 발화자 색 구분을 제안하고 편집 화면과 일괄 수정 API도 구현했습니다.</p></div><div><strong>팀과 확인한 변화</strong><p>{p.summary.outcome} 실제 작가 대상 사용성 시험과 수정 시간 측정은 진행하지 않았습니다.</p></div></div>
-    </>}
-    {project.id === 'forgesync' && <>
-      {p.hero && <Figure {...p.hero} sourceUrl={p.sources[0]?.url} />}
-      <div class="project-points"><div><strong>조사할 구간과 당시 기록</strong><p>가공 시간이 달라진 구간을 고르고 당시 기록을 확인하는 순서로 구성했습니다. 센서 편차는 원인 조사를 위한 참고 정보로 제공합니다.</p></div><div><strong>검증 범위</strong><p>설비 1대의 하루 기록을 활용했습니다. 실제 정상·불량 정답이 없어 탐지 정확도 개선은 입증하지 못했으며, 현장 사용성도 미검증입니다.</p></div></div>
-    </>}
-    {project.id === 'shared-life' && <>
-      <div class="comparison"><div><p class="comparison-label">이전 기획</p><h3>입력하고 대화하며,<br />일정을 관리받기.</h3><p>사용자가 일정을 입력하고 AI와 대화해야 관리를 받을 수 있는 구조였습니다.</p></div><div><p class="comparison-label">현재의 방향</p><h3>앱을 켜고,<br />각자의 일을 함께하기.</h3><p>사용자가 자기 일을 하면 캐릭터도 자기 일상을 보냅니다. 함께한 시간에 따라 관계가 쌓이는 앱을 개발하고 있습니다.</p></div></div>
-      <p class="development-note">{p.summary.outcome}</p>
-    </>}
+      {speak ? <div class="decision-panel" data-reveal>
+        <div class="panel-top"><span>설계 메모</span><span aria-hidden="true">01 / SpeakText</span></div>
+        <div class="decision-line"><span class="decision-step">생성</span><p>원문 분할 처리<br /><strong>같은 인물의 연결</strong></p></div>
+        <div class="decision-connector" aria-hidden="true">↓</div>
+        <div class="decision-line"><span class="decision-step">확인</span><p>음성 청취 중 발견한<br /><strong>잘못된 발화자 연결</strong></p></div>
+        <div class="decision-connector" aria-hidden="true">↓</div>
+        <div class="decision-line decision-answer"><span class="decision-step">수정</span><p>발화자별 색 구분과<br /><strong>작가의 대사 편집</strong></p></div>
+        <p class="panel-caption">생성·검토·수정의 판단 흐름을 요약한 도식입니다.</p>
+      </div> : <div class="comparison-evidence" data-reveal>
+        <figure class="compare-current"><Image src={after} alt="개선 후: 작업·멈춤·기록 없음을 구분한 ForgeSync 화면" widths={[640,1120]} sizes="(max-width: 760px) calc(100vw - 40px), 56vw" /><figcaption><span class="evidence-label">개선 후</span>기록이 없는 시간과 실제 정지를 분리했습니다.</figcaption></figure>
+        <details class="before-evidence"><summary>개선 전 화면 비교 <span class="disclosure-mark" aria-hidden="true">+</span></summary><figure><Image src={before} alt="개선 전: 기록 누락과 정지가 구분되지 않던 ForgeSync 화면" widths={[640,1120]} sizes="(max-width: 760px) calc(100vw - 40px), 56vw" /><figcaption>기록이 없는 시간까지 정지로 읽힐 수 있던 기존 화면입니다.</figcaption></figure></details>
+      </div>}
+    </div>
+    <div class="evidence-footer"><div class="evidence-links"><span>근거로 이어지는 기록</span>{speak?<><a href={p.sources[1].url}>인물 동기화 PR <span aria-hidden="true">↗</span></a><a href={p.sources[2].url}>일괄 수정 API PR <span aria-hidden="true">↗</span></a></>:<><a href={p.sources[1].url}>판정 정책 코드 <span aria-hidden="true">↗</span></a><a href={withBase('/images/forgesync-overview.webp')}>실제 개선 화면 <span aria-hidden="true">↗</span></a></>}</div><p>{speak?'팀 내부의 정성적 피드백입니다. 실제 작가 대상 시험·수정 시간 측정은 진행하지 않았습니다.':'공개 설비 1대의 하루 기록으로 구현했습니다. 실제 불량 판별 정확도와 현장 사용성은 미검증입니다.'}</p></div>
   </div>
-</section>
+</article>

@@ -17,7 +17,7 @@ for (const id of ['speaktext', 'forgesync', 'shared-life', 'db-fleet-ops', 'rese
 }
 test('homepage introduces the developer and orders the main cases', async ({ page }) => {
   await page.goto(base);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('문제를 정의하고, 구현과 검증까지 맡는 개발자');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('“끝났다”는 말의 조건을 묻습니다.');
   expect(await page.locator('[data-project]').evaluateAll(nodes => nodes.map(n => n.getAttribute('data-project')))).toEqual(['speaktext', 'forgesync', 'shared-life']);
 });
 test('approved PDF, fonts and project images load from the configured base', async ({ page, request }) => {
@@ -28,7 +28,7 @@ test('approved PDF, fonts and project images load from the configured base', asy
   expect(await page.evaluate(async()=>{await document.fonts.load('18px Pretendard');return document.fonts.check('18px Pretendard');})).toBe(true);
   for (const path of ['', 'projects/forgesync/']) {
     await page.goto(`${base}${path}`);
-    for (const image of await page.locator('main img').all()) {
+    for (const image of await page.locator('main img:visible').all()) {
       await image.scrollIntoViewIfNeeded();
       await expect(image).toHaveJSProperty('complete', true);
       expect(await image.evaluate((el: HTMLImageElement)=>el.naturalWidth)).toBeGreaterThan(0);
