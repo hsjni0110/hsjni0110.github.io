@@ -5,7 +5,7 @@ test('reading works without javascript', async ({ browser }) => {
   const page = await context.newPage();
   await page.goto(base);
   await page.locator('[data-project="speaktext"]').getByRole('link', { name: '사례 읽기' }).click();
-  await expect(page.getByRole('heading', { name: 'LLM 보완과 작가의 직접 수정 기능 도입', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'LLM 오류를 보완하는 작가 검토·수정 기능 도입', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: '이메일로 연락하기', exact: true })).toHaveAttribute('href', 'mailto:seokjin.han010@gmail.com');
   await context.close();
 });
@@ -62,5 +62,5 @@ test('mobile navigation has full touch targets', async ({ page }) => {
 test('case opens directly into the article without repeated summary', async ({ page }) => {
   await page.goto(`${base}projects/speaktext/`);
   await expect(page.locator('.case-summary, .case-meta, .case-description, .case-toc')).toHaveCount(0);
-  await expect(page.locator('.case-body .prose > h2').first()).toHaveText('원문 분할 처리에서 예상한 인물 연결 오류');
+  await expect(page.locator('.case-body .prose > h2').first()).toHaveText('원문을 나눠 처리할 때 같은 인물의 연결 유지');
 });

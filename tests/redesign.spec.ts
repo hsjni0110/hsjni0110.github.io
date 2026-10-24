@@ -7,7 +7,8 @@ test('work evidence precedes projects and work links navigate to their cases', a
   await page.locator('.portrait-work a[href="#speaktext"]').click();
   await expect(page).toHaveURL(/#speaktext$/);
   await expect(page.locator('#speaktext .service-intro')).toBeVisible();
-  await expect(page.locator('#speaktext .evidence-links a').first()).toHaveAttribute('href','https://github.com/SpeakText/backend/pull/31');
+  await page.locator('#speaktext .story-link').click();
+  await expect(page.locator('.case-sources a[href="https://github.com/SpeakText/backend/pull/31"]')).toHaveCount(1);
 });
 
 test('actual before and after evidence is keyboard operable without javascript', async ({ browser }) => {
@@ -42,13 +43,13 @@ test('reduced motion leaves content visible with no running animations', async (
 });
 
 
-test('mobile puts explanatory figures before long project copy', async ({ page }) => {
+test('mobile introduces each case before its explanatory figure', async ({ page }) => {
   await page.setViewportSize({ width:360,height:800 });
   await page.goto(base);
   for(const id of ['speaktext','forgesync']) {
     const figure=await page.locator(`#${id} .story-grid > :last-child`).boundingBox();
     const copy=await page.locator(`#${id} .story-copy`).boundingBox();
-    expect(figure!.y+figure!.height).toBeLessThanOrEqual(copy!.y);
+    expect(copy!.y+copy!.height).toBeLessThanOrEqual(figure!.y);
   }
   await expect(page.locator('.speaker-example figcaption')).toContainText('설명용 도식');
   await expect(page.locator('.example-selected')).toHaveCount(2);
