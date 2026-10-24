@@ -1,4 +1,5 @@
 ---
+import PipelineSketch from './PipelineSketch.astro';
 import Sketch from './Sketch.astro';
 import TechTags from './TechTags.astro';
 import { writing } from '../data/writing';
@@ -7,6 +8,6 @@ import { profile } from '../data/profile';
 <div class="experience-list">
   {profile.experience.map((x,i)=><article class="experience-row" data-reveal>
     <div class="experience-company"><span class="work-number"><Sketch kind={i===0?'data':'work'} /></span><div><h3>{x.company}</h3><p class="experience-period">{x.period}</p><p class="experience-role">{x.role}</p></div></div>
-    <div class="experience-detail"><h4>{i===0?'분산 적재 방식 변경과 데이터 결과 검증':'공고·추천 API와 테스트 작업 개선'}</h4><p>{x.description}</p><p class="contribution">{x.contribution}</p><TechTags items={x.stack.split(' · ')} /><div class="experience-reading">{i===0 ? <a class="text-link" href={writing[0].url}>적재 방식 분석 글 읽기 <span aria-hidden="true">↗</span></a> : <><a class="text-link" href="https://velog.io/@hsjni0110/Spring-Boot에-Mapstruct-도입하기">MapStruct 도입 글 읽기 <span aria-hidden="true">↗</span></a><a class="text-link" href="https://velog.io/@hsjni0110/인수-테스트-시-초기-데이터-저장하기">인수 테스트 구성 글 읽기 <span aria-hidden="true">↗</span></a></>}</div></div>
+    <div class="experience-detail"><h4>{i===0?'분산 적재 방식 변경과 데이터 결과 검증':'공고·추천 API와 테스트 작업 개선'}</h4><p>{x.description}</p>{i===0 && <PipelineSketch />}<p class="contribution">{x.contribution}</p><TechTags items={x.stack.split(' · ')} /><div class="experience-reading">{i===0 ? <a class="text-link" href={writing[0].url}>적재 방식 분석 글 읽기 <span aria-hidden="true">↗</span></a> : <><a class="text-link" href="https://velog.io/@hsjni0110/Spring-Boot에-Mapstruct-도입하기">MapStruct 도입 글 읽기 <span aria-hidden="true">↗</span></a><a class="text-link" href="https://velog.io/@hsjni0110/인수-테스트-시-초기-데이터-저장하기">인수 테스트 구성 글 읽기 <span aria-hidden="true">↗</span></a></>}</div></div>
   </article>)}
 </div>
